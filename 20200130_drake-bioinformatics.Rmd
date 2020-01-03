@@ -1,0 +1,121 @@
+---
+output:
+  xaringan::moon_reader:
+    css: ["default", "gds.css", "gds-fonts.css"]
+    seal: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: title-slide, bottom
+
+.bold[Matt Dray]
+
+`r icon::fa("twitter")` mattdray
+`r icon::fa("github")` matt-dray
+
+???
+
+* `seal:false` is set in the YAML to override a YAML-generated title page
+* The format of this page shouldn't be changed
+* The department's logo is normmaly shown in the upper left
+* @username is intended as your Twitter handle
+
+---
+class: heading-slide, middle
+
+{drake}
+
+???
+
+* Text on this slide should be minimal
+* There's no background image
+
+---
+class: heading-slide, middle
+background-image: url("img/gds-service-design.jpg")
+background-size: cover
+
+.black[This is an image heading slide]
+
+???
+
+* Text on this slide should be minimal
+* Make sure the text contrasts the background
+
+---
+
+This is a text slide
+
+> Block quote
+
+* Bullet
+  * Indented bullet
+
+Inline code: `foo <- bar(baz)`
+
+| Left       | Center     | Right      |
+| :--------- | :--------: | ---------: |
+| Content A  | A          | 1000       |
+
+???
+
+* Text on this slide should be minimal
+* Use quotes, bullets and tables to help simplify
+
+---
+
+```{r histogram, fig.width=12, fig.height=5.5, dpi=300}
+hist(
+  iris$Sepal.Length,
+  main = "Histogram of sepal length",
+  xlab = "Sepal length"  # highlighted line #<<
+)
+```
+
+???
+
+* Code goes on a text slide
+* Highlight lines with "#<<"
+* Set image output parameters in the chunk settings (width, dots per square inch, etc)
+* You can use .pull-right[] to arrange code/plots side by side
+* If you want your output full screen, use a heading slide with no overlaid text
+
+---
+class: heading-slide
+background-image: url("img/gds-nhs.jpg")
+background-size: cover
+
+???
+
+* Refer to an image location with `url()` even if stored locally
+* Use `background-size: cover` to fit the image within the slide
+
+---
+
+.pull-left[This is how to annotate an image]
+.pull-right[![](img/gds-blog-bold.jpg)]
+
+???
+
+* Text on the left with `.pull-left[]` tag
+* Image on the right with `.pull-right[]` tag
+
+---
+class: title-slide, bottom
+
+.bold[Thanks!]
+
+<br>
+
+Firstname Lastname
+
+@username
+
+???
+
+* The format of this page shouldn't be changed
+* The department's logo is normmaly shown in the upper left
+* @username is intended as your Twitter handle

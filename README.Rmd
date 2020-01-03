@@ -1,0 +1,39 @@
+---
+output: md_document
+---
+
+# drake-bioinformatics
+
+This repo contains slides for a talk about the {drake} package at a [London Bioinformatics Meetup](https://www.meetup.com/en-AU/Bioinformatics-London/events/ksqwtmybccbnc/){target="_blank"} on 30 January 2020.
+
+## Workflow management
+
+The {drake} package by [Will Landau](https://wlandau.github.io/){target="_blank"} is an R-focused solution for managing your analytical workflows. 
+
+What does that mean? {drake} 'remembers' the relationships between objects in your workflow. When you update your analysis, {drake} makes sure that only the impacted objects are re-run. This means you don't have to recreate everything from scratch each time.
+ 
+## Resources
+ 
+For {drake} documentation, visit:
+
+* [the website](https://docs.ropensci.org/drake/){target="_blank"}
+* [user manual](https://books.ropensci.org/drake/){target="_blank"}
+* [the CRAN listing](https://cloud.r-project.org/web/packages/drake/index.html){target="_blank"}
+
+Helpful training materials from Will include:
+
+* the [learndrake repo](https://github.com/wlandau/learndrake){target="_blank"} for learning how {drake} works (can also be run in the cloud with RStudio Cloud or Binder)
+* the [drakeplanner Shiny app](https://wlandau.shinyapps.io/drakeplanner/_w_169ce85f/){target="_blank"} for creating new {drake} projects (see the [source on GitHub](https://github.com/wlandau/drakeplanner){target="_blank"})
+* an [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/){target="_blank"} (24 September 2019)
+
+Great talks by other people include:
+
+* the '[reproducible workflows with the drake R package](https://krlmlr.github.io/drake-pitch/#1){target="_blank"}' talk by [Kirill Müller](https://twitter.com/krlmlr){target="_blank"} (14 April 2019)
+* the '[reproducible data workflows](https://www.garrickadenbuie.com/talk/drake-intro-biodataclub/){target="_blank"}' talk by [Garrick Aden-Buie](https://www.garrickadenbuie.com/){target="_blank"} (19 July 2019)
+* a use case for [tracking NYC fires with Twitter and Google](https://www.youtube.com/watch?v=4vu8h_Zh8Wg&feature=youtu.be){target="_blank"} by [Amanda Dobbyn](https://dobb.ae/){target="_blank"} (19 June 2019)
+
+I've written about {drake} before:
+
+* in a blog post called [can {drake} RAP?](https://www.rostrum.blog/2019/07/23/can-drake-rap/){target="_blank"}
+* in [a Coffee & Coding presentation](https://github.com/matt-dray/drake-egg-rap/blob/master/docs/drake-presentation.pdf){target="_blank"} with an accompanying [{drake} demo repo](https://github.com/matt-dray/drake-egg-rap){target="_blank"}
+* as one of my [packages that sparked joy in 2019](https://www.rostrum.blog/2019/12/27/pkgs-2019/){target="_blank"}
