@@ -1,129 +1,144 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>20200130_drake-bioinformatics.utf8</title>
+    <title>{drake}</title>
     <meta charset="utf-8" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="gds.css" type="text/css" />
-    <link rel="stylesheet" href="gds-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="styles/custom.css" type="text/css" />
+    <link rel="stylesheet" href="styles/custom-fonts.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 
-class: title-slide, bottom
+class: center, middle, inverse
 
-.bold[Matt Dray]
+.image-20[![](img/drake-hex.png)]
+
+# Reproducible workflows with {drake}
 
 <i class="fab  fa-twitter "></i> mattdray
 <i class="fab  fa-github "></i> matt-dray
+<i class="fas  fa-globe "></i> rostrum.blog 
 
-???
-
-* `seal:false` is set in the YAML to override a YAML-generated title page
-* The format of this page shouldn't be changed
-* The department's logo is normmaly shown in the upper left
-* @username is intended as your Twitter handle
+Bioinformatics London Meetup, 2020-01-30
 
 ---
-class: heading-slide, middle
+class: middle
 
-{drake}
+tl;dr
 
-???
+{drake}:
 
-* Text on this slide should be minimal
-* There's no background image
-
----
-class: heading-slide, middle
-background-image: url("img/gds-service-design.jpg")
-background-size: cover
-
-.black[This is an image heading slide]
-
-???
-
-* Text on this slide should be minimal
-* Make sure the text contrasts the background
+* 'remembers' your workflow
+* re-runs only what needs to be re-run
+* saves you time and minimises errors
 
 ---
+class: middle
 
-This is a text slide
-
-&gt; Block quote
-
-* Bullet
-  * Indented bullet
-
-Inline code: `foo &lt;- bar(baz)`
-
-| Left       | Center     | Right      |
-| :--------- | :--------: | ---------: |
-| Content A  | A          | 1000       |
+Why I care
 
 ???
-
-* Text on this slide should be minimal
-* Use quotes, bullets and tables to help simplify
+* What I care about: reproducibility and automation of government publications
+* Reproducible Analytcal Pipelines (RAP)
+* We're building packages, but what do we do about analytical workflows?
 
 ---
+class: middle
 
+Reproducible
 
-```r
-hist(
-  iris$Sepal.Length,
-  main = "Histogram of sepal length",
-* xlab = "Sepal length"  # highlighted line
-)
-```
-
-![](20200130_drake-bioinformatics_files/figure-html/histogram-1.png)&lt;!-- --&gt;
-
-???
-
-* Code goes on a text slide
-* Highlight lines with "#&lt;&lt;"
-* Set image output parameters in the chunk settings (width, dots per square inch, etc)
-* You can use .pull-right[] to arrange code/plots side by side
-* If you want your output full screen, use a heading slide with no overlaid text
+&gt;recreate it later
 
 ---
-class: heading-slide
-background-image: url("img/gds-nhs.jpg")
-background-size: cover
+class: middle
+
+Do you:
+
+* use R?
+* want maximum reproducibility?
+* Use a workflow manager?
+* Use {drake}
+
+---
+class: middle
+
+What's a workflow manager?
+
+Why {drake}?
+
+---
+class: heading-slide, middle, inverse
+
+What's a reproducible workflow?
+
+---
+class: middle
+
+What do I mean by workflow?
 
 ???
-
-* Refer to an image location with `url()` even if stored locally
-* Use `background-size: cover` to fit the image within the slide
+* You have interdependencies of some form
+* Multiple files and functions
+* Read, wrangle, model, plot, report
+* Stuff in, stuff happens, stuff out
 
 ---
 
-.pull-left[This is how to annotate an image]
-.pull-right[![](img/gds-blog-bold.jpg)]
+What's the problem?
 
 ???
-
-* Text on the left with `.pull-left[]` tag
-* Image on the right with `.pull-right[]` tag
+* Interdependencies become too complex
+* You can't record them easily
 
 ---
-class: title-slide, bottom
+class: middle
 
-.bold[Thanks!]
+&lt;Insert tweet with complicated interdependencies&gt;
 
-&lt;br&gt;
+---
+class: middle
 
-Firstname Lastname
-
-@username
+What if something changes?
 
 ???
+* What impact does a change to file 'A' have?
+* Do you re-run everything from scratch?
+* What if it's time intensive?
 
-* The format of this page shouldn't be changed
-* The department's logo is normmaly shown in the upper left
-* @username is intended as your Twitter handle
+---
+class: heading-slide, middle, inverse
+
+Why {drake}?
+
+---
+class: middle
+
+Why is {drake} compelling?
+
+* you alrady work in R
+* you don't have to learn aything els
+* version controllable
+* free
+* great docs
+* peer reviewed
+* under active development
+
+---
+class: middle
+
+1. `drake_plan()`
+1. `make()`
+1. change
+
+---
+class: middle
+
+* [website](){target='_blank'}
+* [guidance](){target='_blank'}
+* [learndrake](){target="_blank"}
+* [drakeplanner](){target="_blank"}
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

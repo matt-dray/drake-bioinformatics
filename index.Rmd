@@ -1,0 +1,140 @@
+---
+pagetitle: "{drake}"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "styles/custom.css", "styles/custom-fonts.css"]
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: center, middle, inverse
+
+.image-20[![](img/drake-hex.png)]
+
+# Reproducible workflows with {drake}
+
+`r icon::fa('twitter')` mattdray
+`r icon::fa('github')` matt-dray
+`r icon::fa('globe')` rostrum.blog 
+
+Bioinformatics London Meetup, 2020-01-30
+
+---
+class: middle
+
+tl;dr
+
+{drake}:
+
+* 'remembers' your workflow
+* re-runs only what needs to be re-run
+* saves you time and minimises errors
+
+---
+class: middle
+
+Why I care
+
+???
+* What I care about: reproducibility and automation of government publications
+* Reproducible Analytcal Pipelines (RAP)
+* We're building packages, but what do we do about analytical workflows?
+
+---
+class: middle
+
+Reproducible
+
+>recreate it later
+
+---
+class: middle
+
+Do you:
+
+* use R?
+* want maximum reproducibility?
+* Use a workflow manager?
+* Use {drake}
+
+---
+class: middle
+
+What's a workflow manager?
+
+Why {drake}?
+
+---
+class: heading-slide, middle, inverse
+
+What's a reproducible workflow?
+
+---
+class: middle
+
+What do I mean by workflow?
+
+???
+* You have interdependencies of some form
+* Multiple files and functions
+* Read, wrangle, model, plot, report
+* Stuff in, stuff happens, stuff out
+
+---
+
+What's the problem?
+
+???
+* Interdependencies become too complex
+* You can't record them easily
+
+---
+class: middle
+
+<Insert tweet with complicated interdependencies>
+
+---
+class: middle
+
+What if something changes?
+
+???
+* What impact does a change to file 'A' have?
+* Do you re-run everything from scratch?
+* What if it's time intensive?
+
+---
+class: heading-slide, middle, inverse
+
+Why {drake}?
+
+---
+class: middle
+
+Why is {drake} compelling?
+
+* you alrady work in R
+* you don't have to learn aything els
+* version controllable
+* free
+* great docs
+* peer reviewed
+* under active development
+
+---
+class: middle
+
+1. `drake_plan()`
+1. `make()`
+1. change
+
+---
+class: middle
+
+* [website](){target='_blank'}
+* [guidance](){target='_blank'}
+* [learndrake](){target="_blank"}
+* [drakeplanner](){target="_blank"}
