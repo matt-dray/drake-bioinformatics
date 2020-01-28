@@ -2,15 +2,18 @@
   background-color: #FFF;
   color: #000;
   font-size: 40px;
-  border-bottom: 30px solid #4a639b;
-  padding: 0 60px 0 60px;
+  border-bottom: 35px solid #4a639b;
+  padding: 0 50px 0 50px;
 }
 
 .remark-code {
+  display: block;
+  overflow-x: auto;
+  padding: .5em;
+  color: #333;
   background: #f8f8f8;
   border-radius: 10px;
   font-size: 25px;
-  padding: 1px;
 }
 
 .remark-inline-code{
@@ -22,10 +25,6 @@
 .remark-slide-number {
   font-size: 10px;
   color: #FFF;
-}
-
-.image-20 img {
-  width: 20%;
 }
 
 a, a > code {
@@ -82,10 +81,6 @@ a, a > code {
 
 .pull-right ~ * {
   clear: both;
-}
-
-.little {
-  font-size: 50%;
 }
 
 img, video, iframe {
