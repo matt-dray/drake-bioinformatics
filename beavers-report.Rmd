@@ -5,7 +5,7 @@ date: "30/01/2020"
 output: html_document
 ---
 
-```{r include=FALSE}
+```{r r-lib, include=FALSE}
 library(drake)
 library(knitr)
 library(dplyr)
