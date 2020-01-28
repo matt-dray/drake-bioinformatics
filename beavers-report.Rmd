@@ -1,7 +1,7 @@
 ---
 title: "R's built-in beavers dataset"
 author: "Matt Dray"
-date: "27/01/2020"
+date: "30/01/2020"
 output: html_document
 ---
 
@@ -21,13 +21,13 @@ From the `?beavers` help page:
 
 What does the distribution of body temperatures look like?
 
-```{r echo=FALSE}
+```{r r-plot, echo=FALSE}
 readd(plot)
 ```
 
 And what are the mean body temperature values?
 
-```{r}
+```{r r-table, echo=FALSE}
 readd(table) %>% kable()
 ```
 

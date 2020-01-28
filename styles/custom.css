@@ -36,8 +36,8 @@ a, a > code {
 .footnote {
   position: absolute;
   bottom: 3em;
-  padding-right: 4em;
-  font-size: 90%;
+  padding-right: 10em;
+  font-size: 50%;
 }
 
 .remark-code-line-highlighted     { background-color: #fff00; }
