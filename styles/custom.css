@@ -2,13 +2,14 @@
   background-color: #FFF;
   color: #000;
   font-size: 40px;
-  border-bottom: 50px solid #4a639b;
+  border-bottom: 40px solid #4a639b;
   padding: 0 60px 0 60px;
 }
 
 .remark-code {
   background: #f8f8f8;
   border-radius: 10px;
+  font-size: 25px;
   padding: 1px;
 }
 
@@ -19,7 +20,8 @@
 }
 
 .remark-slide-number {
-  font-size: 25px;
+  font-size: 15px;
+  color: #FFF;
 }
 
 .image-20 img {
@@ -30,22 +32,26 @@ a, a > code {
   color: rgb(249, 38, 114);
   text-decoration: none;
 }
+
 .footnote {
   position: absolute;
   bottom: 3em;
   padding-right: 4em;
   font-size: 90%;
 }
-.remark-code-line-highlighted     { background-color: #4a639b; }
+
+.remark-code-line-highlighted     { background-color: #fff00; }
 
 .inverse {
   background-color: #1b316f;
   color: #d6d6d6;
   text-shadow: 0 0 20px #333;
 }
+
 .inverse h1, .inverse h2, .inverse h3 {
   color: #f3f3f3;
 }
+
 /* Two-column layout */
 .left-column {
   color: #777;
@@ -53,25 +59,35 @@ a, a > code {
   height: 92%;
   float: left;
 }
+
 .left-column h2:last-of-type, .left-column h3:last-child {
   color: #000;
 }
+
 .right-column {
   width: 75%;
   float: right;
   padding-top: 1em;
 }
+
 .pull-left {
   float: left;
-  width: 47%;
+  width: 72%;
 }
+
 .pull-right {
   float: right;
-  width: 47%;
+  width: 28%;
 }
+
 .pull-right ~ * {
   clear: both;
 }
+
+.little {
+  font-size: 50%;
+}
+
 img, video, iframe {
   max-width: 100%;
 }

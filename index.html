@@ -5,6 +5,10 @@
     <meta charset="utf-8" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+    <link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
+    <script src="libs/vis-4.20.1/vis.min.js"></script>
+    <script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
     <link rel="stylesheet" href="styles/custom.css" type="text/css" />
     <link rel="stylesheet" href="styles/custom-fonts.css" type="text/css" />
   </head>
@@ -13,70 +17,185 @@
 
 class: center, middle, inverse
 
-.image-20[![](img/drake-hex.png)]
+
+
+&lt;img src = 'img/drake-hex.png' width=20%&gt;
 
 # Reproducible workflows with {drake}
 
-<i class="fab  fa-twitter "></i> mattdray
-<i class="fab  fa-github "></i> matt-dray
-<i class="fas  fa-globe "></i> rostrum.blog 
-
 Bioinformatics London Meetup, 2020-01-30
 
----
-class: middle
-
-tl;dr
-
-{drake}:
-
-* 'remembers' your workflow
-* re-runs only what needs to be re-run
-* saves you time and minimises errors
+<i class="fab  fa-twitter "></i> [mattdray](https://twitter.com/mattdray)
+<i class="fab  fa-github "></i> [matt-dray](https://github.com/matt-dray)
+<i class="fas  fa-globe "></i> [rostrum.blog](https://www.rostrum.blog/) 
 
 ---
-class: middle
+class: middle, center
 
-Why I care
+&lt;img src="img/dre-snoop.jpg" height=90%/&gt;
 
 ???
-* What I care about: reproducibility and automation of government publications
-* Reproducible Analytcal Pipelines (RAP)
-* We're building packages, but what do we do about analytical workflows?
+* Let me apologise: I am not the guy on the left here; I've never rapped with Snoop
+
+---
+class: middle, center
+
+&lt;img src="img/drake.jpg" height=100%/&gt;
+
+???
+* And today's talk isn't about this guy
+
+---
+class: middle, center
+
+&lt;img src="img/sir-francis.jpg" height=550/&gt;
+
+???
+* Nor this guy
+
+---
+class: middle, center
+
+&lt;img src="img/nathan.png" height=500/&gt;
+
+???
+* Definitely not about a video game character
+
+---
+class: middle, center
+
+&lt;img src="img/bell.jpg" width=45%/&gt;
+
+???
+* Not Nickelodeon stars from the 2000s
+
+---
+class: middle, center
+
+&lt;img src="img/duck.jpg" width="90%"/&gt;
+
+???
+* Nor ducks
+
+---
+class: middle, center
+
+&lt;img src="img/drake-hex.png" width="50%"/&gt;
+
+???
+* Instead, we're talking {drake}, an R package built by Will Landau for managing workflows and making your analysis pipeline more reproducible
 
 ---
 class: middle
 
-Reproducible
-
-&gt;recreate it later
-
----
-class: middle
-
-Do you:
+Do you: 
+--
 
 * use R?
-* want maximum reproducibility?
-* Use a workflow manager?
-* Use {drake}
+
+--
+* use a workflow manager?
+
+--
+* use {drake}?
+
+--
+* have FOMO about these things?
+
+???
+* Hands-up
+* If the terms mean nothing to you then obviously keep your hand down
+
+---
+class: middle, inverse
+
+# Reproducivangelism
 
 ---
 class: middle
 
-What's a workflow manager?
+I want to convince you of two things:
 
-Why {drake}?
+1. Make your workflow reproducible
+1. {drake} it to make it
+
+---
+class: middle, center
+
+![](img/turing-way-reproducibility.jpg)
+
+From [The Turing Way](https://the-turing-way.netlify.com/introduction/introduction) by The Alan Turing Institute
+
+???
+* But first we should define reproducibility
+* I think we care about reproducing outputs we've aready created (to prove that we can reliably recreate the outcome) and updating with fresh data (like the next quarter's data)
+* But I'm going to refer to 'reproducible' throughout
+
+---
+class: middle
+
+Can I recreate what you did:
+--
+
+* from scratch?
+--
+
+* on a different machine?
+--
+
+* in the future?
+--
+
+* without you present?
+
+???
+* A simpler way of thinking about it might be to answer these questions
+* Do I have everything I need: code, data, documentation?
+* Maybe I don't have the required packages. Maybe I have a different OS.
+* Package dependencies and R versions could break things. Are you protected?
+* What if you leave your lab group?
+* There are lots of tools for this stuff: RMarkdown, {renv}, Docker
+
+---
+class: middle, center
+
+&lt;img src='img/rap_v5_hex.png' width='50%'&gt;
+
+[Reproducible Analytical Pipelines](https://ukgovdatascience.github.io/rap-website/) (RAP)
+
+???
+* In government we recognise the benefits of reproducible analysis and publications via packages and R Markdown
+* (But mostly we like 'backronyms')
+* We want to make sure the whole end-to-end process from data to publication is repeatable.
+* Literally this is a badge of pride in government
+* Focus is on code and documentation, writing packages and functions, and using RMarkdown
+
+---
+class: middle
+
+Can I trust your outputs?
+
+---
+class: middle, inverse
+
+# Two things
+
+???
+* I want to convince you of two things
+* I think there are people in the room who know all this
+* I think there are people in the room who don't know what they're missing
+
+---
+class: middle
+
+1. Use a workflow manager
+
+2. Use {drake} to do it
 
 ---
 class: heading-slide, middle, inverse
 
-What's a reproducible workflow?
-
----
-class: middle
-
-What do I mean by workflow?
+# 1. Use a workflow manager
 
 ???
 * You have interdependencies of some form
@@ -85,17 +204,21 @@ What do I mean by workflow?
 * Stuff in, stuff happens, stuff out
 
 ---
+class: middle
 
-What's the problem?
+But why?
 
 ???
 * Interdependencies become too complex
 * You can't record them easily
 
 ---
-class: middle
+class: middle, center
 
-&lt;Insert tweet with complicated interdependencies&gt;
+&lt;img src='img/frederik-aust.png' width=70%&gt;
+
+???
+* Tweet via [Frederick Aust](https://twitter.com/FrederikAust/status/1205103780938833921?ref_src=twsrc%5Etfw)
 
 ---
 class: middle
@@ -110,14 +233,21 @@ What if something changes?
 ---
 class: heading-slide, middle, inverse
 
-Why {drake}?
+# Why {drake}?
+
+---
+class: middle, center
+
+&lt;img src='img/awesome.png'&gt;
+
+[pditommaso/awesome-pipeline](https://github.com/pditommaso/awesome-pipeline)
 
 ---
 class: middle
 
 Why is {drake} compelling?
 
-* you alrady work in R
+* you already work in R
 * you don't have to learn aything els
 * version controllable
 * free
@@ -130,15 +260,253 @@ class: middle
 
 1. `drake_plan()`
 1. `make()`
-1. change
+1. Change stuff
+1. Go to 2
+
+---
+class: middle, inverse
+
+# Demo
 
 ---
 class: middle
 
-* [website](){target='_blank'}
-* [guidance](){target='_blank'}
-* [learndrake](){target="_blank"}
-* [drakeplanner](){target="_blank"}
+
+```r
+library(drake)
+library(dplyr)
+library(ggplot2)
+library(rphylopic)
+```
+---
+class: middle
+
+
+```r
+b_plot &lt;- function(data, image) {
+  ggplot(data, aes(id, temp)) +
+    geom_boxplot() +
+    labs(title = "Weasel temperature") +
+    add_phylopic(image)
+}
+
+b_table &lt;- function(data) {
+  beavers_trim &lt;- data %&gt;% 
+    group_by(id) %&gt;% 
+    summarise(mean = round(mean(temp), 1)) %&gt;% 
+    ungroup()
+  return(beavers_trim)
+}
+```
+---
+class: middle
+
+
+```r
+plan &lt;- drake_plan(
+  # data
+  b1 = mutate(beaver1, id = "A"),
+  b2 = mutate(beaver2, id = "B"),
+  beavers = bind_rows(b1, b2),
+  # image
+  uid = "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6",
+  png = image_data(uid, size = "512")[[1]],
+  # outputs
+  plot = b_plot(beavers, png),
+  table = b_table(beavers),
+  report = rmarkdown::render(
+    knitr_in("beavers-report.Rmd"), quiet = TRUE,
+    output_file = file_out("beavers-report.html")
+  )
+)
+```
+
+---
+class: middle
+
+
+```r
+plan
+```
+
+```
+## # A tibble: 8 x 2
+##   target  command                                                                                      
+##   &lt;chr&gt;   &lt;expr&gt;                                                                                       
+## 1 b1      mutate(beaver1, id = "A")                                                                   …
+## 2 b2      mutate(beaver2, id = "B")                                                                   …
+## 3 beavers bind_rows(b1, b2)                                                                           …
+## 4 uid     "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6"                                                      …
+## 5 png     image_data(uid, size = "512")[[1]]                                                          …
+## 6 plot    b_plot(beavers, png)                                                                        …
+## 7 table   b_table(beavers)                                                                            …
+## 8 report  rmarkdown::render(knitr_in("beavers-report.Rmd"), quiet = TRUE,      output_file = file_out(…
+```
+
+---
+class: middle
+
+
+
+```r
+drake::make(plan)
+```
+```
+## target uid
+## target b1
+## target b2
+## target png
+## target beavers
+## target table
+## target plot
+## target report
+```
+
+---
+class: middle
+
+
+```r
+config &lt;- drake_config(plan)
+config$graph
+```
+
+```
+## IGRAPH 23d1bec DN-- 13 13 -- 
+## + attr: name (v/c), imported (v/l)
+## + edges from 23d1bec (vertex names):
+##  [1] n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA -&gt;report                           
+##  [2] plot                           -&gt;report                           
+##  [3] table                          -&gt;report                           
+##  [4] p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI-&gt;report                           
+##  [5] report                         -&gt;p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A
+##  [6] beavers                        -&gt;plot                             
+##  [7] beavers                        -&gt;table                            
+##  [8] b_table                        -&gt;table                            
+## + ... omitted several edges
+```
+
+---
+class: middle
+
+
+```r
+vis_drake_graph(
+  config, main = "", width = 800, height = 600,
+  navigationButtons = FALSE, font_size = 15
+)
+```
+
+---
+class: middle
+
+<div id="htmlwidget-52077144b47bb6e4b9dc" style="width:800px;height:600px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-52077144b47bb6e4b9dc">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.005s","b2\n0.005s","png\n0.362s","beavers\n0.008s","plot\n0.323s","table\n0.007s","report\n1.682s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":600,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File"],"color":["#228B22","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black"],"font.size":[15,15,15,15,15],"id":[1,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+
+---
+class: middle
+
+
+```r
+cached()
+```
+
+```
+## [1] "b1"      "b2"      "beavers" "plot"    "png"     "report"  "table"   "uid"
+```
+
+---
+class: middle
+
+
+```r
+readd(table)
+```
+
+```
+## # A tibble: 2 x 2
+##   id     mean
+##   &lt;chr&gt; &lt;dbl&gt;
+## 1 A      36.9
+## 2 B      37.6
+```
+
+---
+class: middle
+
+
+```r
+b_plot &lt;- function(data, image) {
+  ggplot(data, aes(id, temp)) +
+    geom_boxplot() +
+*   labs(title = "Beaver temperature") +
+    add_phylopic(image)
+}
+
+outdated(config)
+```
+
+```
+## [1] "plot"   "report"
+```
+
+---
+class: middle
+
+
+```r
+vis_drake_graph(
+  config, main = "", width = 800, height = 600,
+  navigationButtons = FALSE, font_size = 15
+)
+```
+
+---
+class: middle
+
+<div id="htmlwidget-5b2f3f64e2ae588c1146" style="width:800px;height:600px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5b2f3f64e2ae588c1146">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.005s","b2\n0.005s","png\n0.362s","beavers\n0.008s","plot\n0.323s","table\n0.007s","report\n1.682s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","outdated","up to date","outdated","outdated"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#000000","#228B22","#000000","#000000"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":600,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Imported","Object","Function","File"],"color":["#228B22","#000000","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black","black"],"font.size":[15,15,15,15,15,15],"id":[1,2,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+
+---
+class: middle
+
+
+
+```r
+drake::make(plan)
+```
+```
+## target plot
+## target report
+```
+
+---
+class: inverse, middle
+
+# Where do I start?
+
+---
+class: middle
+
+Official {drake} docs from Will:
+
+* [website](https://docs.ropensci.org/drake/)
+* [user manual](https://books.ropensci.org/drake/) book
+* [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/)
+* [learndrake](https://github.com/wlandau/learndrake) in the cloud
+* [drakeplanner](https://wlandau.shinyapps.io/drakeplanner/_w_7935044f/) Shiny app
+
+---
+class: inverse, middle
+
+# Reproducible workflows with {drake}
+
+* Make your workflow reproducible
+* {drake} it to make it
+
+<i class="fab  fa-twitter "></i> [mattdray](https://twitter.com/mattdray)
+<i class="fab  fa-github "></i> [matt-dray](https://github.com/matt-dray)
+<i class="fas  fa-globe "></i> [rostrum.blog](https://www.rostrum.blog/)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

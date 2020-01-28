@@ -6,6 +6,8 @@ output: md_document
 
 This repo contains slides for a talk about the {drake} package at a [London Bioinformatics Meetup](https://www.meetup.com/en-AU/Bioinformatics-London/events/ksqwtmybccbnc/){target="_blank"} on 30 January 2020.
 
+See the slides here: https://matt-dray.github.io/drake-bioinformatics/
+
 ## Workflow management
 
 The {drake} package by [Will Landau](https://wlandau.github.io/){target="_blank"} is an R-focused solution for managing your analytical workflows. 

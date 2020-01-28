@@ -12,70 +12,187 @@ output:
 ---
 class: center, middle, inverse
 
-.image-20[![](img/drake-hex.png)]
+```{r x-setup, include=FALSE}
+drake::clean()
+```
+
+<img src = 'img/drake-hex.png' width=20%>
 
 # Reproducible workflows with {drake}
 
-`r icon::fa('twitter')` mattdray
-`r icon::fa('github')` matt-dray
-`r icon::fa('globe')` rostrum.blog 
-
 Bioinformatics London Meetup, 2020-01-30
 
----
-class: middle
-
-tl;dr
-
-{drake}:
-
-* 'remembers' your workflow
-* re-runs only what needs to be re-run
-* saves you time and minimises errors
+`r icon::fa('twitter')` [mattdray](https://twitter.com/mattdray)
+`r icon::fa('github')` [matt-dray](https://github.com/matt-dray)
+`r icon::fa('globe')` [rostrum.blog](https://www.rostrum.blog/) 
 
 ---
-class: middle
+class: middle, center
 
-Why I care
+<img src="img/dre-snoop.jpg" height=90%/>
 
 ???
-* What I care about: reproducibility and automation of government publications
-* Reproducible Analytcal Pipelines (RAP)
-* We're building packages, but what do we do about analytical workflows?
+* Let me apologise: I am not the guy on the left here; I've never rapped with Snoop
+
+---
+class: middle, center
+
+<img src="img/drake.jpg" height=100%/>
+
+???
+* And today's talk isn't about this guy
+
+---
+class: middle, center
+
+<img src="img/sir-francis.jpg" height=550/>
+
+???
+* Nor this guy
+
+---
+class: middle, center
+
+<img src="img/nathan.png" height=500/>
+
+???
+* Definitely not about a video game character
+
+---
+class: middle, center
+
+<img src="img/bell.jpg" width=45%/>
+
+???
+* Not Nickelodeon stars from the 2000s
+
+---
+class: middle, center
+
+<img src="img/duck.jpg" width="90%"/>
+
+???
+* Nor ducks
+
+---
+class: middle, center
+
+<img src="img/drake-hex.png" width="50%"/>
+
+???
+* Instead, we're talking {drake}, an R package built by Will Landau for managing workflows and making your analysis pipeline more reproducible
 
 ---
 class: middle
 
-Reproducible
-
->recreate it later
-
----
-class: middle
-
-Do you:
+Do you: 
+--
 
 * use R?
-* want maximum reproducibility?
-* Use a workflow manager?
-* Use {drake}
+
+--
+* use a workflow manager?
+
+--
+* use {drake}?
+
+--
+* have FOMO about these things?
+
+???
+* Hands-up
+* If the terms mean nothing to you then obviously keep your hand down
+
+---
+class: middle, inverse
+
+# Reproducivangelism
 
 ---
 class: middle
 
-What's a workflow manager?
+I want to convince you of two things:
 
-Why {drake}?
+1. Make your workflow reproducible
+1. {drake} it to make it
+
+---
+class: middle, center
+
+![](img/turing-way-reproducibility.jpg)
+
+From [The Turing Way](https://the-turing-way.netlify.com/introduction/introduction) by The Alan Turing Institute
+
+???
+* But first we should define reproducibility
+* I think we care about reproducing outputs we've aready created (to prove that we can reliably recreate the outcome) and updating with fresh data (like the next quarter's data)
+* But I'm going to refer to 'reproducible' throughout
+
+---
+class: middle
+
+Can I recreate what you did:
+--
+
+* from scratch?
+--
+
+* on a different machine?
+--
+
+* in the future?
+--
+
+* without you present?
+
+???
+* A simpler way of thinking about it might be to answer these questions
+* Do I have everything I need: code, data, documentation?
+* Maybe I don't have the required packages. Maybe I have a different OS.
+* Package dependencies and R versions could break things. Are you protected?
+* What if you leave your lab group?
+* There are lots of tools for this stuff: RMarkdown, {renv}, Docker
+
+---
+class: middle, center
+
+<img src='img/rap_v5_hex.png' width='50%'>
+
+[Reproducible Analytical Pipelines](https://ukgovdatascience.github.io/rap-website/) (RAP)
+
+???
+* In government we recognise the benefits of reproducible analysis and publications via packages and R Markdown
+* (But mostly we like 'backronyms')
+* We want to make sure the whole end-to-end process from data to publication is repeatable.
+* Literally this is a badge of pride in government
+* Focus is on code and documentation, writing packages and functions, and using RMarkdown
+
+---
+class: middle
+
+Can I trust your outputs?
+
+---
+class: middle, inverse
+
+# Two things
+
+???
+* I want to convince you of two things
+* I think there are people in the room who know all this
+* I think there are people in the room who don't know what they're missing
+
+---
+class: middle
+
+1. Use a workflow manager
+
+2. Use {drake} to do it
 
 ---
 class: heading-slide, middle, inverse
 
-What's a reproducible workflow?
-
----
-class: middle
-
-What do I mean by workflow?
+# 1. Use a workflow manager
 
 ???
 * You have interdependencies of some form
@@ -84,17 +201,21 @@ What do I mean by workflow?
 * Stuff in, stuff happens, stuff out
 
 ---
+class: middle
 
-What's the problem?
+But why?
 
 ???
 * Interdependencies become too complex
 * You can't record them easily
 
 ---
-class: middle
+class: middle, center
 
-<Insert tweet with complicated interdependencies>
+<img src='img/frederik-aust.png' width=70%>
+
+???
+* Tweet via [Frederick Aust](https://twitter.com/FrederikAust/status/1205103780938833921?ref_src=twsrc%5Etfw)
 
 ---
 class: middle
@@ -109,14 +230,21 @@ What if something changes?
 ---
 class: heading-slide, middle, inverse
 
-Why {drake}?
+# Why {drake}?
+
+---
+class: middle, center
+
+<img src='img/awesome.png'>
+
+[pditommaso/awesome-pipeline](https://github.com/pditommaso/awesome-pipeline)
 
 ---
 class: middle
 
 Why is {drake} compelling?
 
-* you alrady work in R
+* you already work in R
 * you don't have to learn aything els
 * version controllable
 * free
@@ -129,12 +257,205 @@ class: middle
 
 1. `drake_plan()`
 1. `make()`
-1. change
+1. Change stuff
+1. Go to 2
+
+---
+class: middle, inverse
+
+# Demo
 
 ---
 class: middle
 
-* [website](){target='_blank'}
-* [guidance](){target='_blank'}
-* [learndrake](){target="_blank"}
-* [drakeplanner](){target="_blank"}
+```{r x-lib, messages=FALSE}
+library(drake)
+library(dplyr)
+library(ggplot2)
+library(rphylopic)
+```
+---
+class: middle
+
+```{r x-fun}
+b_plot <- function(data, image) {
+  ggplot(data, aes(id, temp)) +
+    geom_boxplot() +
+    labs(title = "Weasel temperature") +
+    add_phylopic(image)
+}
+
+b_table <- function(data) {
+  beavers_trim <- data %>% 
+    group_by(id) %>% 
+    summarise(mean = round(mean(temp), 1)) %>% 
+    ungroup()
+  return(beavers_trim)
+}
+```
+---
+class: middle
+
+```{r x-drake-plan}
+plan <- drake_plan(
+  # data
+  b1 = mutate(beaver1, id = "A"),
+  b2 = mutate(beaver2, id = "B"),
+  beavers = bind_rows(b1, b2),
+  # image
+  uid = "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6",
+  png = image_data(uid, size = "512")[[1]],
+  # outputs
+  plot = b_plot(beavers, png),
+  table = b_table(beavers),
+  report = rmarkdown::render(
+    knitr_in("beavers-report.Rmd"), quiet = TRUE,
+    output_file = file_out("beavers-report.html")
+  )
+)
+```
+
+---
+class: middle
+
+```{r x-plan}
+plan
+```
+
+---
+class: middle
+
+```{r x-make-notrun, echo=FALSE, message=FALSE}
+drake::make(plan)
+```
+```{r x-make-run,eval=FALSE}
+drake::make(plan)
+```
+```
+## target uid
+## target b1
+## target b2
+## target png
+## target beavers
+## target table
+## target plot
+## target report
+```
+
+---
+class: middle
+
+```{r x-config}
+config <- drake_config(plan)
+config$graph
+```
+
+---
+class: middle
+
+```{r x-graph-notrun, eval=FALSE}
+vis_drake_graph(
+  config, main = "", width = 800, height = 600,
+  navigationButtons = FALSE, font_size = 15
+)
+```
+
+---
+class: middle
+
+```{r x-graph-run, echo=FALSE}
+vis_drake_graph(
+  config, main = "", width = 800, height = 600,
+  navigationButtons = FALSE, font_size = 15
+)
+```
+
+---
+class: middle
+
+```{r x-cached}
+cached()
+```
+
+---
+class: middle
+
+```{r x-readd}
+readd(table)
+```
+
+---
+class: middle
+
+```{r x-plot-fix}
+b_plot <- function(data, image) {
+  ggplot(data, aes(id, temp)) +
+    geom_boxplot() +
+    labs(title = "Beaver temperature") + #<<
+    add_phylopic(image)
+}
+
+outdated(config)
+```
+
+---
+class: middle
+
+```{r x-graph-outdated-notrun, eval=FALSE}
+vis_drake_graph(
+  config, main = "", width = 800, height = 600,
+  navigationButtons = FALSE, font_size = 15
+)
+```
+
+---
+class: middle
+
+```{r x-graph-outdated, echo=FALSE}
+vis_drake_graph(
+  config, main = "", width = 800, height = 600,
+  navigationButtons = FALSE, font_size = 15
+)
+```
+
+---
+class: middle
+
+```{r x-plan-outdated-notrun, echo=FALSE, message=FALSE}
+drake::make(plan)
+```
+```{r x-plan-outdated, eval=FALSE}
+drake::make(plan)
+```
+```
+## target plot
+## target report
+```
+
+---
+class: inverse, middle
+
+# Where do I start?
+
+---
+class: middle
+
+Official {drake} docs from Will:
+
+* [website](https://docs.ropensci.org/drake/)
+* [user manual](https://books.ropensci.org/drake/) book
+* [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/)
+* [learndrake](https://github.com/wlandau/learndrake) in the cloud
+* [drakeplanner](https://wlandau.shinyapps.io/drakeplanner/_w_7935044f/) Shiny app
+
+---
+class: inverse, middle
+
+# Reproducible workflows with {drake}
+
+* Make your workflow reproducible
+* {drake} it to make it
+
+`r icon::fa('twitter')` [mattdray](https://twitter.com/mattdray)
+`r icon::fa('github')` [matt-dray](https://github.com/matt-dray)
+`r icon::fa('globe')` [rostrum.blog](https://www.rostrum.blog/) 
