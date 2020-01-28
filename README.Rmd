@@ -16,17 +16,15 @@ What does that mean? {drake} 'remembers' the relationships between objects in yo
  
 ## Resources
  
-For {drake} documentation, visit:
+Official {drake} docs:
 
-* [the website](https://docs.ropensci.org/drake/){target="_blank"}
-* [user manual](https://books.ropensci.org/drake/){target="_blank"}
+* rOpenSci [site](https://docs.ropensci.org/drake/){target='_blank'}
+* the [user manual](https://books.ropensci.org/drake/){target='_blank'}
+* an [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/){target='_blank'}
+* [learndrake](https://github.com/wlandau/learndrake){target='_blank'} in the cloud
+* [drakeplanner](https://wlandau.shinyapps.io/drakeplanner/_w_7935044f/){target='_blank'} Shiny app
+* launch [drake examples](https://github.com/wlandau/drake-examples){target='_blank'} in the cloud
 * [the CRAN listing](https://cloud.r-project.org/web/packages/drake/index.html){target="_blank"}
-
-Helpful training materials from Will include:
-
-* the [learndrake repo](https://github.com/wlandau/learndrake){target="_blank"} for learning how {drake} works (can also be run in the cloud with RStudio Cloud or Binder)
-* the [drakeplanner Shiny app](https://wlandau.shinyapps.io/drakeplanner/_w_169ce85f/){target="_blank"} for creating new {drake} projects (see the [source on GitHub](https://github.com/wlandau/drakeplanner){target="_blank"})
-* an [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/){target="_blank"} (24 September 2019)
 
 Great talks by other people include:
 
@@ -37,5 +35,6 @@ Great talks by other people include:
 I've written about {drake} before:
 
 * in a blog post called [can {drake} RAP?](https://www.rostrum.blog/2019/07/23/can-drake-rap/){target="_blank"}
-* in [a Coffee & Coding presentation](https://github.com/matt-dray/drake-egg-rap/blob/master/docs/drake-presentation.pdf){target="_blank"} with an accompanying [{drake} demo repo](https://github.com/matt-dray/drake-egg-rap){target="_blank"}
+* in [a Coffee & Coding presentation](https://github.com/matt-dray/drake-egg-rap/blob/master/docs/drake-presentation.pdf){target="_blank"} with an accompanying [{drake} demo repo](https://github.com/matt-dray/drake-egg-rap)
+* in [another Coffee & Coding presentation](https://www.rostrum.blog/2020/01/22/repro-three-things/){target='_blank'} about improving reproducibility
 * as one of my [packages that sparked joy in 2019](https://www.rostrum.blog/2019/12/27/pkgs-2019/){target="_blank"}

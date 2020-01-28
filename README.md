@@ -5,6 +5,9 @@ This repo contains slides for a talk about the {drake} package at a
 <a href="https://www.meetup.com/en-AU/Bioinformatics-London/events/ksqwtmybccbnc/" target="_blank">London Bioinformatics Meetup</a>
 on 30 January 2020.
 
+See the slides here:
+<a href="https://matt-dray.github.io/drake-bioinformatics/" class="uri">https://matt-dray.github.io/drake-bioinformatics/</a>
+
 Workflow management
 -------------------
 
@@ -20,25 +23,22 @@ have to recreate everything from scratch each time.
 Resources
 ---------
 
-For {drake} documentation, visit:
+Official {drake} docs:
 
--   <a href="https://docs.ropensci.org/drake/" target="_blank">the website</a>
--   <a href="https://books.ropensci.org/drake/" target="_blank">user manual</a>
--   <a href="https://cloud.r-project.org/web/packages/drake/index.html" target="_blank">the CRAN listing</a>
-
-Helpful training materials from Will include:
-
+-   rOpenSci
+    <a href="https://docs.ropensci.org/drake/" target="_blank">site</a>
 -   the
-    <a href="https://github.com/wlandau/learndrake" target="_blank">learndrake repo</a>
-    for learning how {drake} works (can also be run in the cloud with
-    RStudio Cloud or Binder)
--   the
-    <a href="https://wlandau.shinyapps.io/drakeplanner/_w_169ce85f/" target="_blank">drakeplanner Shiny app</a>
-    for creating new {drake} projects (see the
-    <a href="https://github.com/wlandau/drakeplanner" target="_blank">source on GitHub</a>)
+    <a href="https://books.ropensci.org/drake/" target="_blank">user manual</a>
 -   an
     <a href="https://ropensci.org/commcalls/2019-09-24/" target="_blank">rOpenSci community call</a>
-    (24 September 2019)
+-   <a href="https://github.com/wlandau/learndrake" target="_blank">learndrake</a>
+    in the cloud
+-   <a href="https://wlandau.shinyapps.io/drakeplanner/_w_7935044f/" target="_blank">drakeplanner</a>
+    Shiny app
+-   launch
+    <a href="https://github.com/wlandau/drake-examples" target="_blank">drake examples</a>
+    in the cloud
+-   <a href="https://cloud.r-project.org/web/packages/drake/index.html" target="_blank">the CRAN listing</a>
 
 Great talks by other people include:
 
@@ -63,7 +63,10 @@ I’ve written about {drake} before:
     <a href="https://www.rostrum.blog/2019/07/23/can-drake-rap/" target="_blank">can {drake} RAP?</a>
 -   in
     <a href="https://github.com/matt-dray/drake-egg-rap/blob/master/docs/drake-presentation.pdf" target="_blank">a Coffee &amp; Coding presentation</a>
-    with an accompanying
-    <a href="https://github.com/matt-dray/drake-egg-rap" target="_blank">{drake} demo repo</a>
+    with an accompanying [{drake} demo
+    repo](https://github.com/matt-dray/drake-egg-rap)
+-   in
+    <a href="https://www.rostrum.blog/2020/01/22/repro-three-things/" target="_blank">another Coffee &amp; Coding presentation</a>
+    about improving reproducibility
 -   as one of my
     <a href="https://www.rostrum.blog/2019/12/27/pkgs-2019/" target="_blank">packages that sparked joy in 2019</a>
