@@ -54,7 +54,7 @@ a, a > code {
 /* Two-column layout */
 .left-column {
   color: #777;
-  width: 20%;
+  width: 80%;
   height: 92%;
   float: left;
 }
@@ -64,7 +64,7 @@ a, a > code {
 }
 
 .right-column {
-  width: 75%;
+  width: 20%;
   float: right;
   padding-top: 1em;
 }
