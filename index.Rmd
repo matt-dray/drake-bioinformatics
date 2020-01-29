@@ -27,12 +27,9 @@ Bioinformatics London Meetup, 2020-01-30
 `r icon::fa('globe')` [rostrum.blog](https://www.rostrum.blog/) 
 
 ???
-* Thank you for being here instead of at rstudioconf
+* Thank you for being here instead of the RStudio conference
 * Entomology MSc and a PhD on ecosystem processes under environmental change
-* Over five years in government (Department for Environment, Food and Rural Affairs, Department for Education, Government Digital Service and now the Cabinet Office)
-* You can find me in several places
-* First things first: I must apologise for two reasons
-* You are free to leave if my apology isn't enough
+* Over five years as a government analyst
 
 ---
 class: middle, center
@@ -40,7 +37,7 @@ class: middle, center
 <img src="img/dre-snoop.jpg" height=90%/>
 
 ???
-* First, I'm sorry if you came here expecting a different Dr Dray
+* I'm sorry if you came here expecting a different Dr Dray
 
 ---
 class: middle, center
@@ -48,7 +45,7 @@ class: middle, center
 <img src="img/drake.jpg" height=100%/>
 
 ???
-* And apologies to all the fans of Canadian 'rapper' Drake
+* Apologies to anyone who thought Canada's best rapper would be here
 
 ---
 class: middle, center
@@ -58,7 +55,6 @@ class: middle, center
 [{drake}](https://docs.ropensci.org/drake/) by [Will Landau](https://wlandau.github.io/)
 
 ???
-* We're talking about something _much more hip_
 * {drake}: the R package built by Will Landau for managing workflows and making your analysis pipeline more reproducible
 * It's symbols are a brain and a hammer; I think because {drake} stops you from hammering out your own brain
 
@@ -85,9 +81,9 @@ class: middle, inverse
 # Reproducevangelism
 
 ???
-* I don't want to condescend, I want to build from simple principles
+* I don't want to condescend, I want to build from the general principle of 'reproducible is good'
 * So let's define 'reproducibility'
-* Very important in the scientific fields given the reproducibility crisis
+* Very important in scientific fields given the reproducibility crisis
 
 ---
 class: middle, center
@@ -100,7 +96,6 @@ From [The Turing Way](https://the-turing-way.netlify.com/introduction/introducti
 
 * The book is a great resource for reproduciblity in general
 * I think we care about both (i) recreating ouputs and (ii) updating with fresh data
-* But I'm going to refer to 'reproducible' throughout
 
 ---
 class: middle
@@ -120,11 +115,10 @@ Can I recreate what you did:
 * without you present?
 
 ???
-* We can simplify this as questions to ask yourself
-* Do I have everything I need: code, data, documentation?
-* Maybe I don't have the required packages. Maybe I have a different OS.
-* Package dependencies and R versions could break things. Are you protected?
-* What if you leave your lab group?
+* Do I have all the code, files and documentation?
+* Can I do it on another OS with dependencies missing?
+* Will the code still work next year, or will dependency chenages break it?
+* Did you document it well enough? Is everything stored somewhere remotely?
 
 ---
 class: middle, center
@@ -136,7 +130,7 @@ class: middle, center
 [Can {drake} RAP?](https://www.rostrum.blog/2019/07/23/can-drake-rap/)
 
 ???
-* In government we recognise the benefits of reproducible analysis and publications via packages and R Markdown
+* In government we recognise the benefits of reproducible analysis and publications
 * We want to make sure the whole end-to-end process from data to publication is repeatable
 * Literally this is a badge of pride in government
 * I wrote a thing about how {drake} might be useful for RAP in government
@@ -144,60 +138,66 @@ class: middle, center
 ---
 class: middle
 
-Can I trust the outputs?
+Can I trust these outputs?
 
 --
 
-Can _you_ trust the outputs?
+Can _you_ trust these outputs?
 
 ???
-* To be blunt, can I trust your workflow?
-* And, possibly more importantly, can you?
+* Working in a reproducible way benefits you, with the excellent by-product of also helping others
 
 ---
 class: middle
 
-Let me tell about two things:
+Let's focus on two things today:
 
-1. Make _workflows_ reproducible
-1. Use {drake} to do it
+1. Make workflows reproducible
+1. Use {drake}
 
 ???
-* So in this context of reproducibility, let's talk about improving reproducibility with an approach you may not be thinking about, or that you want to simplify
+* We could talk about this all day, but I'm focusing on one particular thing today
+* If thse both mean nothing to you, then great
+* If you know about workflow reproducibility, maybe you haven't considered {drake}
+* If you do oth these things, then you should be here talking instead of me
 
 ---
 class: heading-slide, middle, inverse
 
-# 1. Reproworkflows
+# 1. Make workflows reproducible
 
 ???
-* You have multiple files and functions that interact
-* Read, wrangle, model, plot, report
-* Stuff in, stuff happens, stuff out
+* I'm referring to analysis 'workflows', but you might say 'pipelines'
+* As in you read, wrangle, model, plot and report data in some fashion
+* The process of turning inputs to outputs
+* This talk assumes that you do this in R, but ideas are transferable
 
 ---
 class: middle
 
-R has [many analytical reproducibility tools](https://annakrystalli.me/talks/r-in-repro-research-dc.html#1), like:
+R has [many reproducibility tools](https://annakrystalli.me/talks/r-in-repro-research-dc.html#1), like:
 
-* [RStudio Projects](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/)
-* [Packages](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/) for reusable code
+* [RStudio Projects](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/) to keep everything together
 * [R Markdown](https://rmarkdown.rstudio.com/) for reproducible docs
+* [packages](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/) for reusable functions
 * [{here}](https://github.com/jennybc/here_here) for relative filepaths
 * [{renv}](https://rstudio.github.io/renv/articles/renv.html) for dependency management
 
 ???
-* R has solutions for making your code work on other's machines now and in the future
-* They also speed up and can help automate your work
-* You can use Git with these to ensure version control too
+* Some general tools, but also packages for very specific things like filepath management
+* Of course, there's agnostic tools like Git and Docker too
+* There are similar tools in other languages
 
 ---
 class: middle
 
 What about your analytical _workflow_ itself?
 
+How do you keep track of function, file and object relationships?
+
 ???
 * Have you considered this before?
+* You might be asking why you might even do this -- is it really a big deal?
 
 ---
 class: middle
@@ -205,13 +205,13 @@ class: middle
 What if:
 --
 
-* you can't remember all the steps?
+* you haven't recorded the steps?
 --
 
-* interdependencies become complex?
+* the interdependencies become complex?
 --
 
-* some of your code takes ages to run?
+* some steps are computationally intensive?
 --
 
 * something changes?
@@ -219,33 +219,33 @@ What if:
 ???
 * What impact does a change to file 'A' have?
 * What if it's time intensive?
-* Do you re-run everything from scratch?
+* Do you re-run everything from scratch if there's a change?
+* Maybe this isn't a big deal for a small analysis, but things can get out of hand quickly
 
 ---
 class: middle, center
 
-<img src='img/frederik-aust.png' width='60%'>
-
 You can't remember this
 
+<img src='img/frederik-aust.png' width='60%'>
+
 ???
-* Tweet via [Frederick Aust](https://twitter.com/FrederikAust/status/1205103780938833921?ref_src=twsrc%5Etfw)
-* But it can get messy quickly
-* You might have hundreds of files, functions and objects
+* Here's a real analysis
+* All of the files, functions and objects that result in one final output on the right
+* The spaghetti is all the relationships
+* How could you possibly remember the exact things to re-run if something changes?
 
 ---
 class: middle
 
-Strategies to improve upon:
+Maybe:
 
-* unsaved, undocumented `untitled.R*`
-* `01-read.R`, `02-wrangle.Rmd`, etc
-* step-by-step in a `README.md`
+Maybe  `01-read.R`, `02-wrangle.R`, etc?
 
 ???
-* You still don't know how individual objects and functions interact
-* You will still have to run from scratch in most cases
-* Maybe think less about grouping code like this and more about managing interactions between individual targets
+* This doesn't scale well
+* Implies the analysis is perfectly sequential
+* You'll still have to re-run from scratch sometimes
 
 ---
 
@@ -264,17 +264,10 @@ Let a workflow manager handle it
 ---
 class: heading-slide, middle, inverse
 
-# 2. {drake} it to make it
+# 2. Use {drake}
 
 ???
-* So if there's so many managers then why {drake}?
-
----
-class: middle, center
-
-<img src='img/drake-promises.png'>
-
-'What gets done stays done'
+* If there's so many managers then why {drake}?
 
 ---
 class: middle
@@ -285,7 +278,7 @@ class: middle
 * R-specific
 --
 
-* got great docs and examples
+* free
 --
 
 * part of [rOpenSci](https://ropensci.org/)
@@ -294,9 +287,11 @@ class: middle
 * under active development
 --
 
-* free!
+* got great documentation and examples
+
 
 ???
+* Targets are any arbitrary values in memory (they must be files in Make)
 * rOpenSci is 'carefully vetted, staff- and community-contributed R software tools that lower barriers to working with scientific data sources and data that support research applications on the web'
 
 ---
@@ -324,12 +319,17 @@ class: middle, inverse
 
 <img src='img/beaver.png'>
 
+???
+* Using the built-in beaver datasets
+* You can see something similar in Chapter 3 of the {drake} user manual
+* This example is run entirely within this {xaringan} presentation, giving you a flavour of its versatility
+
 ---
 class: middle
 
 ```{r x-lib, messages=FALSE}
-# All available from CRAN
-# Use install.packages()
+# All available from CRAN with install.packages()
+
 library(drake)
 library(dplyr)
 library(ggplot2)
@@ -373,29 +373,28 @@ class: middle
 
 ```{r x-drake-plan}
 plan <- drake_plan(
-  # Wrangle data
+
   b1 = mutate(beaver1, id = "A"),
   b2 = mutate(beaver2, id = "B"),
   beavers = bind_rows(b1, b2),
-  # Phylopic image
+
   uid = "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6",
   png = image_data(uid, size = "512")[[1]],
-  # Outputs
+
   plot = b_plot(beavers, png),
   table = b_table(beavers),
   report = rmarkdown::render(
-    knitr_in("beavers-report.Rmd"), quiet = TRUE, #<<
+    knitr_in("beavers-report.Rmd"), #<<
     output_file = file_out("beavers-report.html"), #<<
+    quiet = TRUE
   )
 )
 ```
 
 ???
-* Now we bring in `drake_plan()`
-* We wrap the steps of the analysis in this function -- wrangling, fetching a phylopic image, building the outputs (a plot, table and RMarkdown report)
+* We wrap the steps of the analysis in `drake_plan()` -- wrangling, fetching a phylopic image, building the outputs (a plot, table and RMarkdown report)
 * This doesn't look too dissimilar to a regular script file
-* Maybe your analyses are similar in terms of reading in data, wrangling it and outputting it in some way
-* Particularly if that last step is a thesis or paper
+* `knitr_in()` and `file_out()` are special -- they ensure that reports are refreshed when a dependency changes
 
 ---
 class: middle
@@ -433,12 +432,14 @@ drake::make(plan)  # build the targets
 * To run the workflow, you use `make()`
 
 ---
-class: middle, center
+class: middle
+
+The [rendered output]("https://matt-dray.github.io/drake-bioinformatics/weasel-report.html")
 
 ```{r x-out-weasel, echo=FALSE}
 include_url(
   "https://matt-dray.github.io/drake-bioinformatics/weasel-report.html",
-  height = 500
+  height = 450
 )
 ```
 
@@ -542,7 +543,6 @@ drake::make(plan)  # rebuild outdated targets
 ## target report
 ```
 
-
 ???
 * Of course, we can now re-`make()` the plan
 * {drake} will only update the things that have been impacted by our change
@@ -551,10 +551,12 @@ drake::make(plan)  # rebuild outdated targets
 ---
 class: middle
 
+The [rendered output]("https://matt-dray.github.io/drake-bioinformatics/beavers-report.html"), updated
+
 ```{r x-out, echo=FALSE}
 include_url(
   "https://matt-dray.github.io/drake-bioinformatics/beavers-report.html",
-  height = 500
+  height = 450
 )
 ```
 
@@ -597,6 +599,15 @@ class: inverse, middle
 class: middle
 
 Try it
+
+```
+install.packages("drake")
+library(drake)
+drake_example("main")
+```
+???
+* You can install an example structure from the package itself
+* Otherwise there are many documents you can find on the web
 
 ---
 class: middle
@@ -643,7 +654,7 @@ class: inverse, middle
 # Reproducible workflows with {drake}
 
 1. Make workflows reproducible
-1. Use {drake} to do it
+1. Use {drake}
 
 What gets done stays done!
 
