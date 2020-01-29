@@ -181,13 +181,14 @@ class: heading-slide, middle, inverse
 ---
 class: middle
 
-R has [many analytical reproducibility tools](https://annakrystalli.me/talks/r-in-repro-research-dc.html#1)
+R has [many analytical reproducibility tools](https://annakrystalli.me/talks/r-in-repro-research-dc.html#1), like:
 
 * [RStudio Projects](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/)
 * [Packages](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/) for reusable code
 * [R Markdown](https://rmarkdown.rstudio.com/) for reproducible docs
 * [{here}](https://github.com/jennybc/here_here) for relative filepaths
 * [{renv}](https://rstudio.github.io/renv/articles/renv.html) for dependency management
+* ...
 
 ???
 * R has solutions for making your code work on other's machines now and in the future
@@ -264,21 +265,21 @@ class: heading-slide, middle, inverse
 ---
 class: middle
 
-Why is {drake} compelling?
+Why is {drake} compelling? It:
 --
 
-* it's R-specific
+* is R-specific
 --
 
-* it's free
+* is free
 --
 
-* it has great docs
+* has great docs
 --
 
-* it meets [rOpenSci](https://ropensci.org/)'s rigour
+* meets [rOpenSci](https://ropensci.org/)'s rigour
 --
-
+ 
 * is under active development
 
 ???
@@ -287,7 +288,7 @@ Why is {drake} compelling?
 ---
 class: middle
 
-It's straightforward to use
+It's straightforward to use:
 
 1. `drake_plan()`
 1. `make()`
@@ -386,7 +387,7 @@ plan <- drake_plan(
 class: middle
 
 ```{r x-plan}
-plan
+plan  # it's a dataframe
 ```
 
 ???
@@ -401,7 +402,7 @@ plan
 class: middle
 
 ```{r x-make, message=FALSE}
-drake::make(plan)
+drake::make(plan)  # build the targets
 ```
 ```
 ## target uid
@@ -437,8 +438,8 @@ include_url(
 class: middle
 
 ```{r x-config}
-config <- drake_config(plan)
-config$graph
+config <- drake_config(plan)  # a list
+config$graph  # e.g. an igraph object
 ```
 
 ---
@@ -460,7 +461,7 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
 class: middle
 
 ```{r x-cached}
-cached()  # stored in hidden .drake/ folder
+cached()  # targets in hidden .drake/ folder
 ```
 
 ???
@@ -492,7 +493,7 @@ b_plot <- function(data, image) {
 }
 ```
 ```{r x-outdated}
-outdated(config)  # what's changed?
+outdated(config)  # check what's impacted
 ```
 
 ???
@@ -520,7 +521,7 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
 class: middle
 
 ```{r x-plan-outdated, message=FALSE}
-drake::make(plan)
+drake::make(plan)  # rebuild outdated targets
 ```
 ```
 ## target plot
