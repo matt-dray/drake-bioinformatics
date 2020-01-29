@@ -56,7 +56,9 @@ class: middle, center
 ---
 class: middle, center
 
-&lt;img src="img/drake-hex.png" width="55%"/&gt;
+&lt;img src="img/drake-hex.png" width="45%"/&gt;
+
+[{drake}](https://docs.ropensci.org/drake/) by [Will Landau](https://wlandau.github.io/)
 
 ???
 * We're talking about something _much more hip_
@@ -77,27 +79,14 @@ class: middle
 --
 * use {drake}?
 
---
-* have FOMO about these tools?
 
 ---
 class: middle, inverse
 
 # Reproducevangelism
 
----
-class: middle
-
-The mission:
-
-1. Make workflows reproducible
-
-1. {drake} it to make it
-
 ???
-* I hope we can all agree that reproduciblity is good
-* So why don't you have a think about using a workflow manager?
-* And maybe consider {drake} as a good choice to do that
+* Let's define reproducibility
 
 ---
 class: middle, center
@@ -172,7 +161,7 @@ class: middle, inverse
 # Two things
 
 ???
-* I said there were two things
+* I want to make you thnk about two things
 
 ---
 class: middle
@@ -195,15 +184,23 @@ class: heading-slide, middle, inverse
 ---
 class: middle
 
-You might have reproducible:
+R has [many analytical reproducibility tools](https://annakrystalli.me/talks/r-in-repro-research-dc.html#1)
 
-* code
-* dependencies
-* environments
+* [RStudio Projects](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/)
+* [Packages](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/) for reusable code
+* [R Markdown](https://rmarkdown.rstudio.com/) for reproducible docs
+* [{here}](https://github.com/jennybc/here_here) for relative filepaths
+* [{renv}](https://rstudio.github.io/renv/articles/renv.html) for dependency management
 
---
+???
+* R has solutions for making your code work on other's machines now and in the future
+* They also speed up and can help automate your work
+* You can use Git with these to ensure version control too
 
-What about the _workflow_ itself?
+---
+class: middle
+
+What about your analytical _workflow_ itself?
 
 ???
 * Folks are probably being reproducible already in a number of ways
@@ -213,19 +210,10 @@ What about the _workflow_ itself?
 * So a system for remembering your workflow would be good
 
 ---
-
-class: middle, center
-
-&lt;img src='img/frederik-aust.png' width=70%&gt;
-
-???
-* Tweet via [Frederick Aust](https://twitter.com/FrederikAust/status/1205103780938833921?ref_src=twsrc%5Etfw)
-* Consider an example where you have hundreds of files, functions and objects
-
----
 class: middle
 
 What if:
+--
 
 * you can't remember all the steps?
 --
@@ -248,10 +236,19 @@ What if:
 * You need something to take care of all this for you
 
 ---
+class: middle, center
+
+&lt;img src='img/frederik-aust.png' width=70%&gt;
+
+???
+* Tweet via [Frederick Aust](https://twitter.com/FrederikAust/status/1205103780938833921?ref_src=twsrc%5Etfw)
+* Consider an example where you have hundreds of files, functions and objects
+
+---
 
 class: middle, center
 
-You need a workflow manager
+Consider a workflow manager
 
 &lt;img src='img/awesome.png' width=95%&gt;
 
@@ -270,18 +267,19 @@ class: heading-slide, middle, inverse
 ---
 class: middle
 
-Why is {drake} compelling? It:
-
-* is R-specific
+Why is {drake} compelling?
 --
 
-* is free
+* it's R-specific
 --
 
-* has great docs
+* it's free
 --
 
-* meets [rOpenSci](https://ropensci.org/)'s rigour
+* it has great docs
+--
+
+* it meets [rOpenSci](https://ropensci.org/)'s rigour
 --
 
 * is under active development
@@ -291,6 +289,8 @@ Why is {drake} compelling? It:
 
 ---
 class: middle
+
+It's straightforward to use
 
 1. `drake_plan()`
 1. `make()`
@@ -309,6 +309,8 @@ class: middle
 class: middle, inverse
 
 # Simple demo
+
+&lt;img src='img/beaver.png'&gt;
 
 ---
 class: middle
@@ -396,16 +398,16 @@ plan
 
 ```
 ## # A tibble: 8 x 2
-##   target  command                                                                                      
-##   &lt;chr&gt;   &lt;expr&gt;                                                                                       
-## 1 b1      mutate(beaver1, id = "A")                                                                   …
-## 2 b2      mutate(beaver2, id = "B")                                                                   …
-## 3 beavers bind_rows(b1, b2)                                                                           …
-## 4 uid     "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6"                                                      …
-## 5 png     image_data(uid, size = "512")[[1]]                                                          …
-## 6 plot    b_plot(beavers, png)                                                                        …
-## 7 table   b_table(beavers)                                                                            …
-## 8 report  rmarkdown::render(knitr_in("beavers-report.Rmd"), output_file = file_out("beavers-report.htm…
+##   target  command                                                                             
+##   &lt;chr&gt;   &lt;expr&gt;                                                                              
+## 1 b1      mutate(beaver1, id = "A")                                                          …
+## 2 b2      mutate(beaver2, id = "B")                                                          …
+## 3 beavers bind_rows(b1, b2)                                                                  …
+## 4 uid     "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6"                                             …
+## 5 png     image_data(uid, size = "512")[[1]]                                                 …
+## 6 plot    b_plot(beavers, png)                                                               …
+## 7 table   b_table(beavers)                                                                   …
+## 8 report  rmarkdown::render(knitr_in("beavers-report.Rmd"), output_file = file_out("beavers-r…
 ```
 
 ???
@@ -458,9 +460,9 @@ config$graph
 ```
 
 ```
-## IGRAPH 23d1bec DN-- 13 13 -- 
+## IGRAPH 5092c9c DN-- 13 13 -- 
 ## + attr: name (v/c), imported (v/l)
-## + edges from 23d1bec (vertex names):
+## + edges from 5092c9c (vertex names):
 ##  [1] n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA -&gt;report                           
 ##  [2] plot                           -&gt;report                           
 ##  [3] table                          -&gt;report                           
@@ -481,8 +483,8 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
                 navigationButtons = FALSE, font_size = 15)
 ```
 
-<div id="htmlwidget-0f36057b8c61ccc7635f" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0f36057b8c61ccc7635f">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.01s","b1\n0.025s","b2\n0.148s","png\n0.338s","beavers\n0.012s","plot\n0.516s","table\n0.008s","report\n2.156s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File"],"color":["#228B22","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black"],"font.size":[15,15,15,15,15],"id":[1,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-05a87adfff90359b9a36" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-05a87adfff90359b9a36">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.011s","b2\n0.008s","png\n0.233s","beavers\n0.013s","plot\n0.263s","table\n0.007s","report\n1.811s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File"],"color":["#228B22","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black"],"font.size":[15,15,15,15,15],"id":[1,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 
 ???
 * {drake} has a function that takes advantage of {visNetwork} to display the dependency graph
@@ -540,7 +542,9 @@ b_plot &lt;- function(data, image) {
 *   labs(title = "Beaver temperature") +  # fix!
     add_phylopic(image)
 }
+```
 
+```r
 outdated(config)  # what's changed?
 ```
 
@@ -564,8 +568,8 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
                 navigationButtons = FALSE, font_size = 15)
 ```
 
-<div id="htmlwidget-db2d7de65bbfeeb84906" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-db2d7de65bbfeeb84906">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.01s","b1\n0.025s","b2\n0.148s","png\n0.338s","beavers\n0.012s","plot\n0.516s","table\n0.008s","report\n2.156s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","outdated","up to date","outdated","outdated"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#000000","#228B22","#000000","#000000"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Imported","Object","Function","File"],"color":["#228B22","#000000","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black","black"],"font.size":[15,15,15,15,15,15],"id":[1,2,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4bea838a588962613a4b" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4bea838a588962613a4b">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.011s","b2\n0.008s","png\n0.233s","beavers\n0.013s","plot\n0.263s","table\n0.007s","report\n1.811s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","outdated","up to date","outdated","outdated"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#000000","#228B22","#000000","#000000"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Imported","Object","Function","File"],"color":["#228B22","#000000","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black","black"],"font.size":[15,15,15,15,15,15],"id":[1,2,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 
 ???
 * We can revisit the network graph to get a visual representation of the impact of our change
@@ -602,9 +606,18 @@ class: middle
 ---
 class: middle
 
+To recap
+--
+
 1. `drake_plan()`
+--
+
 1. `make()`
+--
+
 1. Change stuff
+--
+
 1. Go to 2
 
 ???
@@ -624,7 +637,7 @@ class: inverse, middle
 ---
 class: middle
 
-What wasn't covered:
+What wasn't covered
 
 * target-creation history
 * recovery
@@ -641,7 +654,8 @@ What wasn't covered:
 ---
 class: middle
 
-Official {drake} docs:
+Official {drake} materials
+
 
 * rOpenSci [site](https://docs.ropensci.org/drake/)
 * the [user manual](https://books.ropensci.org/drake/)
@@ -649,12 +663,13 @@ Official {drake} docs:
 * [learndrake](https://github.com/wlandau/learndrake) in the cloud
 * [drakeplanner](https://wlandau.shinyapps.io/drakeplanner/_w_7935044f/) Shiny app
 * launch [drake examples](https://github.com/wlandau/drake-examples) in the cloud
-* [the CRAN listing](https://cloud.r-project.org/web/packages/drake/index.html)
+* source [on GitHub](https://github.com/ropensci/drake)
+* the [CRAN listing](https://cloud.r-project.org/web/packages/drake/index.html)
 
 ---
 class: middle
 
-See the:
+Today's materials
 
 * [slides](https://matt-dray.github.io/drake-bioinformatics/#1) in your browser
 * [source](https://github.com/matt-dray/drake-bioinformatics) for the slides
@@ -677,10 +692,11 @@ class: middle
 
 Sources
 
-* [The other Dr Dre](https://commons.wikimedia.org/wiki/File:Snoop_Dogg_and_Dr._Dre.jpg)
-* [Canadian rapper](https://commons.wikimedia.org/wiki/Category:Drake)
-* {drake} [hex sticker](https://camo.githubusercontent.com/44749362ca36c9e3295f2bcf18975d811564c121/68747470733a2f2f646f63732e726f70656e7363692e6f72672f6472616b652f7265666572656e63652f666967757265732f6c6f676f2e737667)
-* {drake} network from [a tweet by Frederik Aust](https://twitter.com/FrederikAust/status/1205103780938833921?s=20)
+* Dr Not-Dray [via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Snoop_Dogg_and_Dr._Dre.jpg)
+* Canadian rapper [via Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Drake)
+* {drake} [hex logo](https://camo.githubusercontent.com/44749362ca36c9e3295f2bcf18975d811564c121/68747470733a2f2f646f63732e726f70656e7363692e6f72672f6472616b652f7265666572656e63652f666967757265732f6c6f676f2e737667)
+* {drake} hairball by [Frederik Aust](https://twitter.com/FrederikAust/status/1205103780938833921?s=20)
+* _Castor canadensis_ from [PhyloPic](http://phylopic.org/image/b3dd721e-6084-4413-8300-44e10d8fd3ca/)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
