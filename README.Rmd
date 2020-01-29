@@ -6,7 +6,11 @@ output: md_document
 
 This repo contains slides for a talk about the {drake} package at a [London Bioinformatics Meetup](https://www.meetup.com/en-AU/Bioinformatics-London/events/ksqwtmybccbnc/){target="_blank"} on 30 January 2020.
 
-See the slides here: https://matt-dray.github.io/drake-bioinformatics/
+The materials are:
+
+* the [slides](https://matt-dray.github.io/drake-bioinformatics/#1) in your browser
+* the [source](https://github.com/matt-dray/drake-bioinformatics) for the slides (this repo)
+* an [.R script file](https://github.com/matt-dray/drake-bioinformatics/blob/master/drake-beavers-workflow.R) of all the {drake} code 
 
 ## Workflow management
 
@@ -16,15 +20,16 @@ What does that mean? {drake} 'remembers' the relationships between objects in yo
  
 ## Resources
  
-Official {drake} docs:
+Official {drake} materials:
 
-* rOpenSci [site](https://docs.ropensci.org/drake/){target='_blank'}
-* the [user manual](https://books.ropensci.org/drake/){target='_blank'}
-* an [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/){target='_blank'}
-* [learndrake](https://github.com/wlandau/learndrake){target='_blank'} in the cloud
-* [drakeplanner](https://wlandau.shinyapps.io/drakeplanner/_w_7935044f/){target='_blank'} Shiny app
-* launch [drake examples](https://github.com/wlandau/drake-examples){target='_blank'} in the cloud
-* [the CRAN listing](https://cloud.r-project.org/web/packages/drake/index.html){target="_blank"}
+* rOpenSci [site](https://docs.ropensci.org/drake/)
+* the [user manual](https://books.ropensci.org/drake/)
+* an [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/)
+* [learndrake](https://github.com/wlandau/learndrake) in the cloud
+* [drakeplanner](https://wlandau.shinyapps.io/drakeplanner/_w_7935044f/) Shiny app
+* launch [drake examples](https://github.com/wlandau/drake-examples) in the cloud
+* source [on GitHub](https://github.com/ropensci/drake)
+* the [CRAN listing](https://cloud.r-project.org/web/packages/drake/index.html)
 
 Great talks by other people include:
 
@@ -36,5 +41,5 @@ I've written about {drake} before:
 
 * in a blog post called [can {drake} RAP?](https://www.rostrum.blog/2019/07/23/can-drake-rap/){target="_blank"}
 * in [a Coffee & Coding presentation](https://github.com/matt-dray/drake-egg-rap/blob/master/docs/drake-presentation.pdf){target="_blank"} with an accompanying [{drake} demo repo](https://github.com/matt-dray/drake-egg-rap)
-* in [another Coffee & Coding presentation](https://www.rostrum.blog/2020/01/22/repro-three-things/){target='_blank'} about improving reproducibility
+* in [another Coffee & Coding presentation](https://www.rostrum.blog/2020/01/22/repro-three-things/){target='_blank'} about three things to improve reproducibility
 * as one of my [packages that sparked joy in 2019](https://www.rostrum.blog/2019/12/27/pkgs-2019/){target="_blank"}

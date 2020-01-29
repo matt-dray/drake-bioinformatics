@@ -549,7 +549,7 @@ include_url(
 ---
 class: middle
 
-To recap
+To recap:
 --
 
 1. `drake_plan()`
@@ -580,7 +580,7 @@ class: inverse, middle
 ---
 class: middle
 
-What wasn't covered
+What wasn't covered:
 
 * target-creation history
 * recovery
@@ -589,6 +589,7 @@ What wasn't covered
 * time prediction
 * memory strategies
 * trigger customisation
+* ...
 
 ???
 * Clearly there isn't enough time to go through all the great things about {drake}
@@ -597,8 +598,7 @@ What wasn't covered
 ---
 class: middle
 
-Official {drake} materials
-
+Official {drake} materials:
 
 * rOpenSci [site](https://docs.ropensci.org/drake/)
 * the [user manual](https://books.ropensci.org/drake/)
@@ -612,11 +612,11 @@ Official {drake} materials
 ---
 class: middle
 
-Today's materials
+Revisit today's materials with:
 
-* [slides](https://matt-dray.github.io/drake-bioinformatics/#1) in your browser
-* [source](https://github.com/matt-dray/drake-bioinformatics) for the slides
-* [.R script file](https://github.com/matt-dray/drake-bioinformatics/blob/master/drake-beavers-workflow.R) with all the {drake} code 
+* the [slides](https://matt-dray.github.io/drake-bioinformatics/#1) in your browser
+* the [source](https://github.com/matt-dray/drake-bioinformatics) for the slides
+* an [.R script file](https://github.com/matt-dray/drake-bioinformatics/blob/master/drake-beavers-workflow.R) of all the {drake} code 
 
 ---
 class: inverse, middle
