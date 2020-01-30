@@ -31,8 +31,8 @@ Bioinformatics London Meetup, 2020-01-30
 
 ???
 * Thank you for being here instead of the RStudio conference
-* Entomology MSc and a PhD on ecosystem processes under environmental change
-* Over five years as a government analyst
+* I have an entomology MSc and a PhD on ecosystem processes under environmental change (watching leaves rot, if you want to get technical)
+* Over five years as a government analyst, much of it spent encouraging a switch to R from Excel-led processes
 
 ---
 class: middle, center
@@ -84,7 +84,7 @@ class: middle, inverse
 # Reproducevangelism
 
 ???
-* I don't want to condescend, I want to build from the general principle of 'reproducible is good'
+* I don't want to condescend or dictate, I want to build from the general principle of 'reproducible is good'
 * So let's define 'reproducibility'
 * Very important in scientific fields given the reproducibility crisis
 
@@ -96,9 +96,9 @@ class: middle, center
 From [The Turing Way](https://the-turing-way.netlify.com/introduction/introduction) by The Alan Turing Institute
 
 ???
-
-* The book is a great resource for reproduciblity in general
+* The book is a great free resource for reproduciblity in general
 * I think we care about both (i) recreating ouputs and (ii) updating with fresh data
+* I"m going to refer to this top row as reproducibility throughout
 
 ---
 class: middle
@@ -134,8 +134,9 @@ class: middle, center
 
 ???
 * In government we recognise the benefits of reproducible analysis and publications
-* We want to make sure the whole end-to-end process from data to publication is repeatable
 * Literally this is a badge of pride in government
+* We want to make sure the whole end-to-end process from data to publication is repeatable
+* We want to build trust, but also make it easier to update publications as new data emerges
 * I wrote a thing about how {drake} might be useful for RAP in government
 
 ---
@@ -153,7 +154,7 @@ Can _you_ trust these outputs?
 ---
 class: middle
 
-Let's focus on two things today:
+Today's focus:
 
 1. Make workflows reproducible
 1. Use {drake}
@@ -194,7 +195,7 @@ R has [many reproducibility tools](https://annakrystalli.me/talks/r-in-repro-res
 ---
 class: middle
 
-What about your analytical _workflow_ itself?
+What about your analytical workflow itself?
 
 How do you keep track of function, file and object relationships?
 
@@ -246,8 +247,8 @@ Maybe:
 Maybe  `01-read.R`, `02-wrangle.R`, etc?
 
 ???
-* This doesn't scale well
-* Implies the analysis is perfectly sequential
+* This doesn't scale well -- might be okay for smaller projects
+* Implies the analysis is perfectly sequential -- but some objects from file `01` might be applied in `03` rather than `02`
 * You'll still have to re-run from scratch sometimes
 
 ---
@@ -263,6 +264,7 @@ Let a workflow manager handle it
 ???
 * There are many workflow managers -- some general, some language-specific
 * The one that most people might be familiar with is Make (capital 'M')
+* It's language agnostic, but has some limitations -- it operates on files, for example and requires you to learn how to use Make
 
 ---
 class: heading-slide, middle, inverse
@@ -294,8 +296,11 @@ class: middle
 
 
 ???
-* Targets are any arbitrary values in memory (they must be files in Make)
-* rOpenSci is 'carefully vetted, staff- and community-contributed R software tools that lower barriers to working with scientific data sources and data that support research applications on the web'
+* For {drake}, targets are any arbitrary values in memory (they must be files in Make)
+* Proprietary software might be okay when working alone or with specific collaborators who also have the tool, but what about the wider world?
+* rOpenSci is 'carefully vetted, staff- and community-contributed R software tools that lower barriers to working with scientific data sources and data that support research applications on the web' -- requires peer review
+* Will is active at responding to issues and developing new things
+* Will has provided a lot of materials to explain the use of {drake}, as well as learning materials like a Shiny app and installable example projects (I've listed these on a slide at the end)
 
 ---
 class: middle
@@ -323,7 +328,7 @@ class: middle, inverse
 &lt;img src='img/beaver.png'&gt;
 
 ???
-* Using the built-in beaver datasets
+* Using the built-in `beaver1` and `beaver2` datasets
 * You can see something similar in Chapter 3 of the {drake} user manual
 * This example is run entirely within this {xaringan} presentation, giving you a flavour of its versatility
 
@@ -343,7 +348,7 @@ library(rphylopic)
 ???
 * The first couple of steps look like a 'normal' analysis
 * First we load the packages we want to use
-* {rphylopic} taps into the Phylopic API so we can grab a royalty-free image to adorn our plot
+* {rphylopic} is a package by Scott Chamberlain and David Miller that taps into the Phylopic API so we can grab a royalty-free image to adorn our plot
 
 ---
 class: middle
@@ -412,16 +417,16 @@ plan  # it's a dataframe
 
 ```
 ## # A tibble: 8 x 2
-##   target  command                                                                                      
-##   &lt;chr&gt;   &lt;expr&gt;                                                                                       
-## 1 b1      mutate(beaver1, id = "A")                                                                   …
-## 2 b2      mutate(beaver2, id = "B")                                                                   …
-## 3 beavers bind_rows(b1, b2)                                                                           …
-## 4 uid     "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6"                                                      …
-## 5 png     image_data(uid, size = "512")[[1]]                                                          …
-## 6 plot    b_plot(beavers, png)                                                                        …
-## 7 table   b_table(beavers)                                                                            …
-## 8 report  rmarkdown::render(knitr_in("beavers-report.Rmd"), output_file = file_out("beavers-report.htm…
+##   target  command                                                                         
+##   &lt;chr&gt;   &lt;expr&gt;                                                                          
+## 1 b1      mutate(beaver1, id = "A")                                                      …
+## 2 b2      mutate(beaver2, id = "B")                                                      …
+## 3 beavers bind_rows(b1, b2)                                                              …
+## 4 uid     "be8670c2-a5bd-4b44-88e8-92f8b0c7f4c6"                                         …
+## 5 png     image_data(uid, size = "512")[[1]]                                             …
+## 6 plot    b_plot(beavers, png)                                                           …
+## 7 table   b_table(beavers)                                                               …
+## 8 report  rmarkdown::render(knitr_in("beavers-report.Rmd"), output_file = file_out("beave…
 ```
 
 ???
@@ -461,9 +466,9 @@ The [rendered output]("https://matt-dray.github.io/drake-bioinformatics/weasel-r
 &lt;iframe src="https://matt-dray.github.io/drake-bioinformatics/weasel-report.html" width="100%" height="450"&gt;&lt;/iframe&gt;
 
 ???
-* Here's what the rendered output looks like
+* Here's what the RMarkdown output looks like after rendering to HTML
 * The data was wrangled, a plot and table were produced and this was recorded in an R Markdown file
-* This was rendered to HTML
+* You'll need an internet connection to see this
 
 
 ---
@@ -499,8 +504,8 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
                 navigationButtons = FALSE, font_size = 15)
 ```
 
-<div id="htmlwidget-5f87f9d63fe082630e38" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5f87f9d63fe082630e38">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.006s","b1\n0.006s","b2\n0.007s","png\n0.432s","beavers\n0.012s","plot\n0.439s","table\n0.009s","report\n1.844s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File"],"color":["#228B22","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black"],"font.size":[15,15,15,15,15],"id":[1,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-276796bfcd55799642f0" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-276796bfcd55799642f0">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.006s","b2\n0.005s","png\n0.229s","beavers\n0.008s","plot\n0.385s","table\n0.007s","report\n1.977s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File"],"color":["#228B22","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black"],"font.size":[15,15,15,15,15],"id":[1,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 
 ???
 * {drake} has a function that takes advantage of {visNetwork} to display the dependency graph
@@ -584,8 +589,8 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
                 navigationButtons = FALSE, font_size = 15)
 ```
 
-<div id="htmlwidget-0e70934a2e3c5f43e542" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0e70934a2e3c5f43e542">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.006s","b1\n0.006s","b2\n0.007s","png\n0.432s","beavers\n0.012s","plot\n0.439s","table\n0.009s","report\n1.844s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","outdated","up to date","outdated","outdated"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#000000","#228B22","#000000","#000000"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Imported","Object","Function","File"],"color":["#228B22","#000000","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black","black"],"font.size":[15,15,15,15,15,15],"id":[1,2,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-94860ef799416d12db65" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-94860ef799416d12db65">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.006s","b2\n0.005s","png\n0.229s","beavers\n0.008s","plot\n0.385s","table\n0.007s","report\n1.977s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","outdated","up to date","outdated","outdated"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#000000","#228B22","#000000","#000000"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Imported","Object","Function","File"],"color":["#228B22","#000000","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black","black"],"font.size":[15,15,15,15,15,15],"id":[1,2,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 
 ???
 * We can revisit the network graph to get a visual representation of the impact of our change
@@ -619,6 +624,7 @@ The [rendered output]("https://matt-dray.github.io/drake-bioinformatics/beavers-
 
 ???
 * And we can peak at the rendered R Markdown once more to check that our change to the plot function had its desired effect
+* You'll need an internet connection to see this
 
 ---
 class: middle
@@ -699,11 +705,20 @@ We didn't cover everything, like:
 ---
 class: middle
 
-Revisit today's materials with:
+Revisit today's materials:
 
-* the [slides](https://matt-dray.github.io/drake-bioinformatics/#1) in your browser
-* the [source](https://github.com/matt-dray/drake-bioinformatics) for the slides
-* an [.R script file](https://github.com/matt-dray/drake-bioinformatics/blob/master/drake-beavers-workflow.R) of all the {drake} code 
+* [matt-dray.github.io/drake-bioinformatics/](https://matt-dray.github.io/drake-bioinformatics/#1)
+* [github.com/matt-dray/drake-bioinformatics](https://github.com/matt-dray/drake-bioinformatics)
+* [R script](https://github.com/matt-dray/drake-bioinformatics/blob/master/drake-beavers-workflow.R) of the code used 
+
+Plus:
+
+* [Can {drake} RAP?](https://www.rostrum.blog/2019/07/23/can-drake-rap/) blog post
+* run this example in Binder [![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/matt-dray/drake-egg-rap/master?urlpath=rstudio)
+
+???
+* Slides and source on GitHub, along with a single script file of the code used in the presentation
+* Binder is a service that lets you launch a Notebook or RStudio instance in the cloud with data and code that you provide
 
 ---
 class: inverse, middle
@@ -718,6 +733,12 @@ What gets done stays done!
 <i class="fab  fa-twitter "></i> [mattdray](https://twitter.com/mattdray)
 <i class="fab  fa-github "></i> [matt-dray](https://github.com/matt-dray)
 <i class="fas  fa-globe "></i> [rostrum.blog](https://www.rostrum.blog/) 
+
+???
+* I hope I've convinced you to consider a workflow manager
+* And hopefully to take a look at {drake} as your tool of choice
+* At worst, you might have learnt about {rphylopic}!
+* I'm gong to finish here, but we have time for some words from our special guest, Will Landau
 
 ---
 class: middle

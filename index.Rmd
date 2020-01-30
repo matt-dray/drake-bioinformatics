@@ -28,8 +28,8 @@ Bioinformatics London Meetup, 2020-01-30
 
 ???
 * Thank you for being here instead of the RStudio conference
-* Entomology MSc and a PhD on ecosystem processes under environmental change
-* Over five years as a government analyst
+* I have an entomology MSc and a PhD on ecosystem processes under environmental change (watching leaves rot, if you want to get technical)
+* Over five years as a government analyst, much of it spent encouraging a switch to R from Excel-led processes
 
 ---
 class: middle, center
@@ -81,7 +81,7 @@ class: middle, inverse
 # Reproducevangelism
 
 ???
-* I don't want to condescend, I want to build from the general principle of 'reproducible is good'
+* I don't want to condescend or dictate, I want to build from the general principle of 'reproducible is good'
 * So let's define 'reproducibility'
 * Very important in scientific fields given the reproducibility crisis
 
@@ -93,9 +93,9 @@ class: middle, center
 From [The Turing Way](https://the-turing-way.netlify.com/introduction/introduction) by The Alan Turing Institute
 
 ???
-
-* The book is a great resource for reproduciblity in general
+* The book is a great free resource for reproduciblity in general
 * I think we care about both (i) recreating ouputs and (ii) updating with fresh data
+* I"m going to refer to this top row as reproducibility throughout
 
 ---
 class: middle
@@ -131,8 +131,9 @@ class: middle, center
 
 ???
 * In government we recognise the benefits of reproducible analysis and publications
-* We want to make sure the whole end-to-end process from data to publication is repeatable
 * Literally this is a badge of pride in government
+* We want to make sure the whole end-to-end process from data to publication is repeatable
+* We want to build trust, but also make it easier to update publications as new data emerges
 * I wrote a thing about how {drake} might be useful for RAP in government
 
 ---
@@ -150,7 +151,7 @@ Can _you_ trust these outputs?
 ---
 class: middle
 
-Let's focus on two things today:
+Today's focus:
 
 1. Make workflows reproducible
 1. Use {drake}
@@ -191,7 +192,7 @@ R has [many reproducibility tools](https://annakrystalli.me/talks/r-in-repro-res
 ---
 class: middle
 
-What about your analytical _workflow_ itself?
+What about your analytical workflow itself?
 
 How do you keep track of function, file and object relationships?
 
@@ -243,8 +244,8 @@ Maybe:
 Maybe  `01-read.R`, `02-wrangle.R`, etc?
 
 ???
-* This doesn't scale well
-* Implies the analysis is perfectly sequential
+* This doesn't scale well -- might be okay for smaller projects
+* Implies the analysis is perfectly sequential -- but some objects from file `01` might be applied in `03` rather than `02`
 * You'll still have to re-run from scratch sometimes
 
 ---
@@ -260,6 +261,7 @@ Let a workflow manager handle it
 ???
 * There are many workflow managers -- some general, some language-specific
 * The one that most people might be familiar with is Make (capital 'M')
+* It's language agnostic, but has some limitations -- it operates on files, for example and requires you to learn how to use Make
 
 ---
 class: heading-slide, middle, inverse
@@ -291,8 +293,11 @@ class: middle
 
 
 ???
-* Targets are any arbitrary values in memory (they must be files in Make)
-* rOpenSci is 'carefully vetted, staff- and community-contributed R software tools that lower barriers to working with scientific data sources and data that support research applications on the web'
+* For {drake}, targets are any arbitrary values in memory (they must be files in Make)
+* Proprietary software might be okay when working alone or with specific collaborators who also have the tool, but what about the wider world?
+* rOpenSci is 'carefully vetted, staff- and community-contributed R software tools that lower barriers to working with scientific data sources and data that support research applications on the web' -- requires peer review
+* Will is active at responding to issues and developing new things
+* Will has provided a lot of materials to explain the use of {drake}, as well as learning materials like a Shiny app and installable example projects (I've listed these on a slide at the end)
 
 ---
 class: middle
@@ -320,7 +325,7 @@ class: middle, inverse
 <img src='img/beaver.png'>
 
 ???
-* Using the built-in beaver datasets
+* Using the built-in `beaver1` and `beaver2` datasets
 * You can see something similar in Chapter 3 of the {drake} user manual
 * This example is run entirely within this {xaringan} presentation, giving you a flavour of its versatility
 
@@ -339,7 +344,7 @@ library(rphylopic)
 ???
 * The first couple of steps look like a 'normal' analysis
 * First we load the packages we want to use
-* {rphylopic} taps into the Phylopic API so we can grab a royalty-free image to adorn our plot
+* {rphylopic} is a package by Scott Chamberlain and David Miller that taps into the Phylopic API so we can grab a royalty-free image to adorn our plot
 
 ---
 class: middle
@@ -444,9 +449,9 @@ include_url(
 ```
 
 ???
-* Here's what the rendered output looks like
+* Here's what the RMarkdown output looks like after rendering to HTML
 * The data was wrangled, a plot and table were produced and this was recorded in an R Markdown file
-* This was rendered to HTML
+* You'll need an internet connection to see this
 
 
 ---
@@ -562,6 +567,7 @@ include_url(
 
 ???
 * And we can peak at the rendered R Markdown once more to check that our change to the plot function had its desired effect
+* You'll need an internet connection to see this
 
 ---
 class: middle
@@ -642,11 +648,20 @@ We didn't cover everything, like:
 ---
 class: middle
 
-Revisit today's materials with:
+Revisit today's materials:
 
-* the [slides](https://matt-dray.github.io/drake-bioinformatics/#1) in your browser
-* the [source](https://github.com/matt-dray/drake-bioinformatics) for the slides
-* an [.R script file](https://github.com/matt-dray/drake-bioinformatics/blob/master/drake-beavers-workflow.R) of all the {drake} code 
+* [matt-dray.github.io/drake-bioinformatics/](https://matt-dray.github.io/drake-bioinformatics/#1)
+* [github.com/matt-dray/drake-bioinformatics](https://github.com/matt-dray/drake-bioinformatics)
+* [R script](https://github.com/matt-dray/drake-bioinformatics/blob/master/drake-beavers-workflow.R) of the code used 
+
+Plus:
+
+* [Can {drake} RAP?](https://www.rostrum.blog/2019/07/23/can-drake-rap/) blog post
+* run this example in Binder [![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/matt-dray/drake-egg-rap/master?urlpath=rstudio)
+
+???
+* Slides and source on GitHub, along with a single script file of the code used in the presentation
+* Binder is a service that lets you launch a Notebook or RStudio instance in the cloud with data and code that you provide
 
 ---
 class: inverse, middle
@@ -661,6 +676,12 @@ What gets done stays done!
 `r icon::fa('twitter')` [mattdray](https://twitter.com/mattdray)
 `r icon::fa('github')` [matt-dray](https://github.com/matt-dray)
 `r icon::fa('globe')` [rostrum.blog](https://www.rostrum.blog/) 
+
+???
+* I hope I've convinced you to consider a workflow manager
+* And hopefully to take a look at {drake} as your tool of choice
+* At worst, you might have learnt about {rphylopic}!
+* I'm gong to finish here, but we have time for some words from our special guest, Will Landau
 
 ---
 class: middle
