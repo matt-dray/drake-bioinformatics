@@ -394,9 +394,8 @@ plan <- drake_plan(
   plot = b_plot(beavers, png),
   table = b_table(beavers),
   report = rmarkdown::render(
-    knitr_in("beavers-report.Rmd"), #<<
+    knitr_in("beavers-report.Rmd"), quiet = TRUE, #<<
     output_file = file_out("beavers-report.html"), #<<
-    quiet = TRUE
   )
   
 )
