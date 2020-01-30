@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Reproworkflows with {drake}</title>
+    <title>Reproducible workflows with {drake}</title>
     <meta charset="utf-8" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
@@ -33,6 +33,7 @@ Bioinformatics London Meetup, 2020-01-30
 * Thank you for being here instead of the RStudio conference
 * I have an entomology MSc and a PhD on ecosystem processes under environmental change (watching leaves rot, if you want to get technical)
 * Over five years as a government analyst, much of it spent encouraging a switch to R from Excel-led processes
+* (I'm talking today as me, not on behalf of my employer)
 
 ---
 class: middle, center
@@ -40,7 +41,7 @@ class: middle, center
 &lt;img src="img/dre-snoop.jpg" height=90%/&gt;
 
 ???
-* I'm sorry if you came here expecting a different Dr Dray
+* An apology: I'm sorry if you came here expecting a different Dr Dray
 
 ---
 class: middle, center
@@ -48,7 +49,7 @@ class: middle, center
 &lt;img src="img/drake.jpg" height=100%/&gt;
 
 ???
-* Apologies to anyone who thought Canada's best rapper would be here
+* Another apology: I'm not talking about Canada's best rapper
 
 ---
 class: middle, center
@@ -96,6 +97,7 @@ class: middle, center
 From [The Turing Way](https://the-turing-way.netlify.com/introduction/introduction) by The Alan Turing Institute
 
 ???
+* We could get into a heated debate about the definition
 * The book is a great free resource for reproduciblity in general
 * I think we care about both (i) recreating ouputs and (ii) updating with fresh data
 * I"m going to refer to this top row as reproducibility throughout
@@ -161,7 +163,7 @@ Today's focus:
 
 ???
 * We could talk about this all day, but I'm focusing on one particular thing today
-* If thse both mean nothing to you, then great
+* If these both mean nothing to you, then great
 * If you know about workflow reproducibility, maybe you haven't considered {drake}
 * If you do oth these things, then you should be here talking instead of me
 
@@ -221,6 +223,7 @@ What if:
 * something changes?
 
 ???
+* You might be thinking 'no, what's the point?'
 * What impact does a change to file 'A' have?
 * What if it's time intensive?
 * Do you re-run everything from scratch if there's a change?
@@ -265,6 +268,7 @@ Let a workflow manager handle it
 * There are many workflow managers -- some general, some language-specific
 * The one that most people might be familiar with is Make (capital 'M')
 * It's language agnostic, but has some limitations -- it operates on files, for example and requires you to learn how to use Make
+* This is a powerful thought technology
 
 ---
 class: heading-slide, middle, inverse
@@ -323,7 +327,7 @@ At its simplest:
 ---
 class: middle, inverse
 
-# Small demo
+#Small demo
 
 &lt;img src='img/beaver.png'&gt;
 
@@ -337,7 +341,7 @@ class: middle
 
 
 ```r
-# All available from CRAN with install.packages()
+# Get from CRAN with install.packages()
 
 library(drake)
 library(dplyr)
@@ -348,6 +352,7 @@ library(rphylopic)
 ???
 * The first couple of steps look like a 'normal' analysis
 * First we load the packages we want to use
+* {dplyr} and {ggplot2} from the tidyverse suite
 * {rphylopic} is a package by Scott Chamberlain and David Miller that taps into the Phylopic API so we can grab a royalty-free image to adorn our plot
 
 ---
@@ -399,6 +404,7 @@ plan &lt;- drake_plan(
 *   output_file = file_out("beavers-report.html"),
     quiet = TRUE
   )
+  
 )
 ```
 
@@ -431,8 +437,7 @@ plan  # it's a dataframe
 
 ???
 * What does the plan object look like?
-* It's a data frame
-* Two columns: one for 'targets' and one for 'commands'
+* 'Dataframes in R for Make' == {drake}
 * Targets are the things being acted upon and commands are the tasks
 * This plan is the key to how {drake} 'remembers' your workflow: it knows the relationships between all the steps and the order they're in
 * So far we haven't built anything, we've just created the receipe
@@ -470,7 +475,6 @@ The [rendered output]("https://matt-dray.github.io/drake-bioinformatics/weasel-r
 * The data was wrangled, a plot and table were produced and this was recorded in an R Markdown file
 * You'll need an internet connection to see this
 
-
 ---
 class: middle
 
@@ -504,8 +508,8 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
                 navigationButtons = FALSE, font_size = 15)
 ```
 
-<div id="htmlwidget-276796bfcd55799642f0" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-276796bfcd55799642f0">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.006s","b2\n0.005s","png\n0.229s","beavers\n0.008s","plot\n0.385s","table\n0.007s","report\n1.977s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File"],"color":["#228B22","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black"],"font.size":[15,15,15,15,15],"id":[1,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e7878575fcc6c6787dfc" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e7878575fcc6c6787dfc">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.006s","b1\n0.005s","b2\n0.006s","png\n0.247s","beavers\n0.012s","plot\n0.415s","table\n0.01s","report\n1.819s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File"],"color":["#228B22","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black"],"font.size":[15,15,15,15,15],"id":[1,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 
 ???
 * {drake} has a function that takes advantage of {visNetwork} to display the dependency graph
@@ -589,8 +593,8 @@ vis_drake_graph(config, main = "", width = 800, height = 450,
                 navigationButtons = FALSE, font_size = 15)
 ```
 
-<div id="htmlwidget-94860ef799416d12db65" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-94860ef799416d12db65">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.005s","b1\n0.006s","b2\n0.005s","png\n0.229s","beavers\n0.008s","plot\n0.385s","table\n0.007s","report\n1.977s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","outdated","up to date","outdated","outdated"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#000000","#228B22","#000000","#000000"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Imported","Object","Function","File"],"color":["#228B22","#000000","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black","black"],"font.size":[15,15,15,15,15,15],"id":[1,2,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-62550c4c74a5257b26a5" style="width:800px;height:450px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-62550c4c74a5257b26a5">{"x":{"nodes":{"id":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","b_table","b_plot","uid","b1","b2","png","beavers","plot","table","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A"],"imported":[true,true,true,true,false,false,false,false,false,false,false,false,false],"label":["rmarkdown::render","file beavers-report.Rmd","b_table","b_plot","uid\n0.006s","b1\n0.005s","b2\n0.006s","png\n0.247s","beavers\n0.012s","plot\n0.415s","table\n0.01s","report\n1.819s","file beavers-report.html"],"status":["imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","outdated","up to date","outdated","outdated"],"type":["function","file","function","function","object","object","object","object","object","object","object","object","file"],"font.size":[15,15,15,15,15,15,15,15,15,15,15,15,15],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#000000","#228B22","#000000","#000000"],"shape":["triangle","square","triangle","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square"],"level":[1,1,1,1,1,1,1,2,2,3,3,4,5],"x":[-1,-1,-1,-1,-1,-1,-1,-0.5,-0.5,0,0,0.5,1],"y":[-1,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,1,-0.444444444444445,0.444444444444444,-0.444444444444445,0.444444444444444,0,0]},"edges":{"from":["n-OJWWC4TLMRXXO3R2HJZGK3TEMVZA","plot","table","p-MJSWC5TFOJZS24TFOBXXE5BOKJWWI","report","beavers","beavers","b_table","b_plot","png","uid","b1","b2"],"to":["report","report","report","report","p-MJSWC5TFOJZS24TFOBXXE5BONB2G23A","plot","table","table","plot","plot","png","beavers","beavers"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":null,"width":800,"height":450,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Imported","Object","Function","File"],"color":["#228B22","#000000","#1874CD","#888888","#888888","#888888"],"shape":["dot","dot","dot","dot","triangle","square"],"font.color":["black","black","black","black","black","black"],"font.size":[15,15,15,15,15,15],"id":[1,2,5,7,9,10]},"nodesToDataframe":true},"igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 
 ???
 * We can revisit the network graph to get a visual representation of the impact of our change
@@ -658,6 +662,10 @@ class: inverse, middle
 
 # What now?
 
+???
+* We talked about reproduciblity, about workflow managers, about {drake}
+* What do I think you should do now?
+
 ---
 class: middle
 
@@ -677,7 +685,7 @@ class: middle
 
 Check out official {drake} materials:
 
-* rOpenSci [site](https://docs.ropensci.org/drake/)
+* rOpenSci [{drake} website](https://docs.ropensci.org/drake/)
 * the [user manual](https://books.ropensci.org/drake/)
 * an [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/)
 * [learndrake](https://github.com/wlandau/learndrake) in the cloud
@@ -691,8 +699,8 @@ class: middle
 
 We didn't cover everything, like:
 
-* target-creation history and recovery
 * high-performance computing
+* target-creation history and recovery
 * static and dynamic branching
 * time prediction
 * memory strategies

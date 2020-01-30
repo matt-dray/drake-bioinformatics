@@ -44,7 +44,6 @@ a, a > code {
 .inverse {
   background-color: #1b316f;
   color: #d6d6d6;
-  text-shadow: 0 0 20px #333;
 }
 
 .inverse h1, .inverse h2, .inverse h3 {

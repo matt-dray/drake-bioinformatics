@@ -1,5 +1,5 @@
 ---
-pagetitle: "Reproworkflows with {drake}"
+pagetitle: "Reproducible workflows with {drake}"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -30,6 +30,7 @@ Bioinformatics London Meetup, 2020-01-30
 * Thank you for being here instead of the RStudio conference
 * I have an entomology MSc and a PhD on ecosystem processes under environmental change (watching leaves rot, if you want to get technical)
 * Over five years as a government analyst, much of it spent encouraging a switch to R from Excel-led processes
+* (I'm talking today as me, not on behalf of my employer)
 
 ---
 class: middle, center
@@ -37,7 +38,7 @@ class: middle, center
 <img src="img/dre-snoop.jpg" height=90%/>
 
 ???
-* I'm sorry if you came here expecting a different Dr Dray
+* An apology: I'm sorry if you came here expecting a different Dr Dray
 
 ---
 class: middle, center
@@ -45,7 +46,7 @@ class: middle, center
 <img src="img/drake.jpg" height=100%/>
 
 ???
-* Apologies to anyone who thought Canada's best rapper would be here
+* Another apology: I'm not talking about Canada's best rapper
 
 ---
 class: middle, center
@@ -93,6 +94,7 @@ class: middle, center
 From [The Turing Way](https://the-turing-way.netlify.com/introduction/introduction) by The Alan Turing Institute
 
 ???
+* We could get into a heated debate about the definition
 * The book is a great free resource for reproduciblity in general
 * I think we care about both (i) recreating ouputs and (ii) updating with fresh data
 * I"m going to refer to this top row as reproducibility throughout
@@ -158,7 +160,7 @@ Today's focus:
 
 ???
 * We could talk about this all day, but I'm focusing on one particular thing today
-* If thse both mean nothing to you, then great
+* If these both mean nothing to you, then great
 * If you know about workflow reproducibility, maybe you haven't considered {drake}
 * If you do oth these things, then you should be here talking instead of me
 
@@ -218,6 +220,7 @@ What if:
 * something changes?
 
 ???
+* You might be thinking 'no, what's the point?'
 * What impact does a change to file 'A' have?
 * What if it's time intensive?
 * Do you re-run everything from scratch if there's a change?
@@ -262,6 +265,7 @@ Let a workflow manager handle it
 * There are many workflow managers -- some general, some language-specific
 * The one that most people might be familiar with is Make (capital 'M')
 * It's language agnostic, but has some limitations -- it operates on files, for example and requires you to learn how to use Make
+* This is a powerful thought technology
 
 ---
 class: heading-slide, middle, inverse
@@ -320,7 +324,7 @@ At its simplest:
 ---
 class: middle, inverse
 
-# Small demo
+#Small demo
 
 <img src='img/beaver.png'>
 
@@ -333,7 +337,7 @@ class: middle, inverse
 class: middle
 
 ```{r x-lib, messages=FALSE}
-# All available from CRAN with install.packages()
+# Get from CRAN with install.packages()
 
 library(drake)
 library(dplyr)
@@ -344,6 +348,7 @@ library(rphylopic)
 ???
 * The first couple of steps look like a 'normal' analysis
 * First we load the packages we want to use
+* {dplyr} and {ggplot2} from the tidyverse suite
 * {rphylopic} is a package by Scott Chamberlain and David Miller that taps into the Phylopic API so we can grab a royalty-free image to adorn our plot
 
 ---
@@ -393,6 +398,7 @@ plan <- drake_plan(
     output_file = file_out("beavers-report.html"), #<<
     quiet = TRUE
   )
+  
 )
 ```
 
@@ -410,8 +416,7 @@ plan  # it's a dataframe
 
 ???
 * What does the plan object look like?
-* It's a data frame
-* Two columns: one for 'targets' and one for 'commands'
+* 'Dataframes in R for Make' == {drake}
 * Targets are the things being acted upon and commands are the tasks
 * This plan is the key to how {drake} 'remembers' your workflow: it knows the relationships between all the steps and the order they're in
 * So far we haven't built anything, we've just created the receipe
@@ -452,7 +457,6 @@ include_url(
 * Here's what the RMarkdown output looks like after rendering to HTML
 * The data was wrangled, a plot and table were produced and this was recorded in an R Markdown file
 * You'll need an internet connection to see this
-
 
 ---
 class: middle
@@ -601,6 +605,10 @@ class: inverse, middle
 
 # What now?
 
+???
+* We talked about reproduciblity, about workflow managers, about {drake}
+* What do I think you should do now?
+
 ---
 class: middle
 
@@ -620,7 +628,7 @@ class: middle
 
 Check out official {drake} materials:
 
-* rOpenSci [site](https://docs.ropensci.org/drake/)
+* rOpenSci [{drake} website](https://docs.ropensci.org/drake/)
 * the [user manual](https://books.ropensci.org/drake/)
 * an [rOpenSci community call](https://ropensci.org/commcalls/2019-09-24/)
 * [learndrake](https://github.com/wlandau/learndrake) in the cloud
@@ -634,8 +642,8 @@ class: middle
 
 We didn't cover everything, like:
 
-* target-creation history and recovery
 * high-performance computing
+* target-creation history and recovery
 * static and dynamic branching
 * time prediction
 * memory strategies
